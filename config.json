@@ -1,0 +1,6 @@
+{
+  "target_class": "Calculator",
+  "target_method": "add",
+  "target_method_signature": "(II)I",
+  "dump": "dump_pipeline.json"
+}

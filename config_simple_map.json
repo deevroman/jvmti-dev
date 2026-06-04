@@ -1,0 +1,6 @@
+{
+  "target_class": "SimpleMapExample",
+  "target_method": "update",
+  "target_method_signature": "(I)I",
+  "dump": "dump_simple_map.json"
+}

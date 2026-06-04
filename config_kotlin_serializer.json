@@ -1,0 +1,6 @@
+{
+  "target_class": "KotlinSerializerRunner",
+  "target_method": "serializeProfile",
+  "target_method_signature": "(Ljava/lang/String;I)Ljava/lang/String;",
+  "dump": "dump_kotlin_serializer.json"
+}

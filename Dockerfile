@@ -1,0 +1,24 @@
+FROM maven:3.9.9-eclipse-temurin-21
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV JAVA_HOME=/opt/java/openjdk
+ENV PATH="${JAVA_HOME}/bin:${PATH}"
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    ca-certificates \
+    cmake \
+    curl \
+    git \
+    ninja-build \
+    nlohmann-json3-dev \
+    pkg-config \
+    python3 \
+    python3-pip \
+    ripgrep \
+    unzip \
+ && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /workspace
+
+CMD ["/bin/bash"]

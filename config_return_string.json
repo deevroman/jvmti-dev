@@ -1,0 +1,6 @@
+{
+  "target_class": "ReturnStringExample",
+  "target_method": "compose",
+  "target_method_signature": "(IZ)Ljava/lang/String;",
+  "dump": "dump_return_string.json"
+}

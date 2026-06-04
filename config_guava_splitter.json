@@ -1,0 +1,6 @@
+{
+  "target_class": "GuavaSplitterRunner",
+  "target_method": "splitCsv",
+  "target_method_signature": "()Ljava/util/List;",
+  "dump": "dump_guava_splitter.json"
+}

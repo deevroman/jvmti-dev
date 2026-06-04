@@ -1,0 +1,6 @@
+{
+  "target_class": "InputStreamFileExample",
+  "target_method": "readFirstByteAndClose",
+  "target_method_signature": "()I",
+  "dump": "dump_input_stream_example.json"
+}

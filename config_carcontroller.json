@@ -1,0 +1,6 @@
+{
+  "target_class": "CarController",
+  "target_method": "accelerate",
+  "target_method_signature": "(II)I",
+  "dump": "dump_carcontroller.json"
+}
