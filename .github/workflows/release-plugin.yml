@@ -16,18 +16,32 @@ permissions:
 
 jobs:
   build:
-    name: Build plugin (${{ matrix.java }})
-    runs-on: ubuntu-latest
+    name: Build plugin (${{ matrix.java }}, ${{ matrix.arch }})
+    runs-on: ${{ matrix.runner }}
     strategy:
       fail-fast: false
       matrix:
         include:
           - java: java21
+            arch: x64
+            runner: ubuntu-24.04
             image: trickyfoxy/jvmti-dumper-dev:java21
             asset_name: libdumper-linux-x64-java21.so
           - java: java25
+            arch: x64
+            runner: ubuntu-24.04
             image: trickyfoxy/jvmti-dumper-dev:java25
             asset_name: libdumper-linux-x64-java25.so
+          - java: java21
+            arch: arm64
+            runner: ubuntu-24.04-arm
+            image: trickyfoxy/jvmti-dumper-dev:java21
+            asset_name: libdumper-linux-arm64-java21.so
+          - java: java25
+            arch: arm64
+            runner: ubuntu-24.04-arm
+            image: trickyfoxy/jvmti-dumper-dev:java25
+            asset_name: libdumper-linux-arm64-java25.so
     container:
       image: ${{ matrix.image }}
     steps:
@@ -48,7 +62,7 @@ jobs:
       - name: Upload workflow artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.java }}-plugin
+          name: ${{ matrix.java }}-${{ matrix.arch }}-plugin
           path: dist/${{ matrix.asset_name }}
           if-no-files-found: error
 
@@ -66,6 +80,4 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.event.release.tag_name || inputs.tag }}
-          files: |
-            release-assets/java21-plugin/libdumper-linux-x64-java21.so
-            release-assets/java25-plugin/libdumper-linux-x64-java25.so
+          files: release-assets/**/*.so
