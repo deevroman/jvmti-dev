@@ -1,5 +1,10 @@
 # JVMTI Tests generator
 
+- [ ] Опубликовать тесты производительности
+- [ ] Инструкция по сборке плагина в Docker
+- [ ] Видео-демо на реальном проекте
+- [ ] Инструкция по запуску в Zed
+
 ## Быстрое демо
 
 Плагин предсобран для JDK 21/25 для arm64/x86 Linux и arm64 macOS.
@@ -24,7 +29,7 @@ echo ".jvmti-dumper/$ASSET"
 
 ## Пример генерации
 
-Создайте и создадим простой пример `Calculator.java`:
+Создадим простой пример `Calculator.java`:
 
 ```bash
 cat > Calculator.java <<'EOF'
@@ -47,9 +52,7 @@ EOF
 javac -g Calculator.java
 ```
 
-## Конфиг метода
-
-Создайте `runtime_config.json` одной командой:
+Создадим файл в котором укажем для какого метода генерируем тест:
 
 ```bash
 cat > runtime_config.json <<'EOF'
@@ -63,7 +66,7 @@ cat > runtime_config.json <<'EOF'
 EOF
 ```
 
-## Запустим JVM
+И запустим JVM
 
 ```bash
 mkdir -p out && \
@@ -80,7 +83,7 @@ Result: 10002
 Count: 1
 ```
 
-Дампы будут в папке `out`
+В папке `out` будут собранные данные:
 
 ```text
 out/dump_calculator.json
@@ -90,17 +93,12 @@ out/agent.log
 
 ---
 
-## Алгоритмическая генерация теста
-
-Сейчас генератор тестов лежит в исходниках репозитория, поэтому для этого шага нужно склонировать проект:
-
-```bash
-git clone https://github.com/deevroman/jvmti-dev.git .jvmti-dumper-repo
-```
+## Алгоритмическая генерация теста 
 
 Запустите генератор для полученного JSON dump:
 
 ```bash
+git clone https://github.com/deevroman/jvmti-dev.git .jvmti-dumper-repo
 mkdir -p generated_tests .jvmti-dumper-repo/.artifacts/generator_classes && \
 javac \
   -cp .jvmti-dumper-repo/tests_generator/json-20230227.jar \
@@ -118,6 +116,28 @@ java \
 
 ```text
 generated_tests/CalculatorTest.java
+```
+
+## LLM-генерация теста
+
+Поддержана работа с бесплатными моделями Gemini. Ключ можно передать через переменную окружения `GEMINI_API_KEY`.
+
+```bash
+git clone https://github.com/deevroman/jvmti-dev.git .jvmti-dumper-repo
+mkdir -p llm_generated_tests .jvmti-dumper-repo/.artifacts/llm_generator_classes && \
+javac \
+  -cp .jvmti-dumper-repo/tests_generator/json-20230227.jar \
+  -d .jvmti-dumper-repo/.artifacts/llm_generator_classes \
+  .jvmti-dumper-repo/tests_generator/LlmJUnitGenerator.java \
+  .jvmti-dumper-repo/tests_generator/LlmMain.java && \
+GEMINI_API_KEY="your-api-key" \
+java \
+  -cp .jvmti-dumper-repo/.artifacts/llm_generator_classes:.jvmti-dumper-repo/tests_generator/json-20230227.jar \
+  LlmMain \
+  --input out/dump_calculator.json \
+  --llm-dump out/dump_calculator.llm.txt \
+  --output-dir llm_generated_tests \
+  --model gemini-2.5-flash
 ```
 
 ## Запуск сгенерированного теста
@@ -138,4 +158,3 @@ java -jar .jvmti-dumper-repo/tests_generator/lib/junit-platform-console-standalo
   --select-class CalculatorTest
 ```
 
-Успешный запуск должен завершиться с `1 tests successful` и `0 tests failed`.
