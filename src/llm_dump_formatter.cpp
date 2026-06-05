@@ -408,10 +408,23 @@ void render_serialized_value_for_llm(std::ostringstream& out, const json& node, 
     append_llm_line(out, depth, "String(\"" + llm_escape_string(json_string_or_empty(node, "string_value")) + "\")");
     return;
   }
+  if (kind == "enum_value") {
+    std::ostringstream enum_value;
+    enum_value << "Enum[" << json_string_or_empty(node, "enum_class") << "]." << json_string_or_empty(node, "enum_name");
+    if (node.find("enum_ordinal") != node.end() && node["enum_ordinal"].is_number_integer()) {
+      enum_value << " (ordinal=" << node["enum_ordinal"].get<long long>() << ")";
+    }
+    append_llm_line(out, depth, enum_value.str());
+    return;
+  }
   if (kind == "primitive") {
     const std::string descriptor = json_string_or_empty(node, "primitive_descriptor");
     const char primitive_kind = descriptor.empty() ? '\0' : descriptor[0];
     append_llm_line(out, depth, primitive_value_for_llm(primitive_kind, node.value("primitive_value", json())));
+    return;
+  }
+  if (kind == "custom" && node.find("custom") != node.end() && node["custom"].is_object()) {
+    render_custom_value_for_llm(out, node["custom"], refs, visiting, depth);
     return;
   }
   if (kind == "array" && node.find("array") != node.end() && node["array"].is_object()) {

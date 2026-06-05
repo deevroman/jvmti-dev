@@ -139,6 +139,44 @@ bool read_boxed_primitive(JNIEnv* env, jobject obj, const std::string& descripto
   return false;
 }
 
+bool read_enum_value(JNIEnv* env, jobject obj, const JvmTypeInfo& object_type, json& value) {
+  jclass enum_cls = env->FindClass("java/lang/Enum");
+  if (!enum_cls) return false;
+
+  const bool is_enum = env->IsInstanceOf(obj, enum_cls);
+  if (!is_enum) {
+    env->DeleteLocalRef(enum_cls);
+    return false;
+  }
+
+  jmethodID mid_name = env->GetMethodID(enum_cls, "name", "()Ljava/lang/String;");
+  jmethodID mid_ordinal = env->GetMethodID(enum_cls, "ordinal", "()I");
+  if (!mid_name || !mid_ordinal) {
+    env->DeleteLocalRef(enum_cls);
+    return false;
+  }
+
+  jstring name = reinterpret_cast<jstring>(env->CallObjectMethod(obj, mid_name));
+  const jint ordinal = env->CallIntMethod(obj, mid_ordinal);
+
+  value["kind"] = "enum_value";
+  value["enum_class"] = object_type.fqcn;
+  value["enum_name"] = "";
+  value["enum_ordinal"] = ordinal;
+
+  if (name) {
+    const char* chars = env->GetStringUTFChars(name, nullptr);
+    if (chars) {
+      value["enum_name"] = chars;
+      env->ReleaseStringUTFChars(name, chars);
+    }
+    env->DeleteLocalRef(name);
+  }
+
+  env->DeleteLocalRef(enum_cls);
+  return true;
+}
+
 json serialize_object_value(jvmtiEnv* jvmti, JNIEnv* env, jobject obj, const DumpSerializerDeps& deps);
 
 bool is_map_instance(JNIEnv* env, jobject obj) {
@@ -338,6 +376,10 @@ json serialize_object_value(jvmtiEnv* jvmti, JNIEnv* env, jobject obj, const Dum
     return value;
   }
 
+  if (read_enum_value(env, obj, object_type, value)) {
+    return value;
+  }
+
   char primitive_descriptor = '\0';
   json primitive_value;
   if (read_boxed_primitive(env, obj, object_type.descriptor, primitive_descriptor, primitive_value)) {
@@ -350,6 +392,14 @@ json serialize_object_value(jvmtiEnv* jvmti, JNIEnv* env, jobject obj, const Dum
   if (!object_type.descriptor.empty() && object_type.descriptor[0] == '[') {
     value["kind"] = "array";
     value["array"] = BuildArrayDump(jvmti, env, obj, object_type.descriptor.c_str(), deps);
+    return value;
+  }
+
+  json custom;
+  if (try_serialize_custom_field(jvmti, env, obj, custom, deps)) {
+    value["kind"] = "custom";
+    value["object_id"] = deps.resolve_object_id(jvmti, obj);
+    value["custom"] = custom;
     return value;
   }
 
