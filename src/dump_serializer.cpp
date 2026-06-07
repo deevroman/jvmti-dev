@@ -702,12 +702,14 @@ void FillObjectFields(jvmtiEnv* jvmti, JNIEnv* env, jobject obj, json& obj_json,
       jobject val = env->GetObjectField(obj, fields[i]);
       if (val) {
         JvmTypeInfo runtime_type = get_object_type_info(jvmti, env, val);
-        field_entry["object_id"] = deps.resolve_object_id(jvmti, val);
         field_entry["runtime_type"] = TypeInfoToJson(runtime_type);
         if (is_input_stream_instance(env, val)) field_entry["mock_kind"] = "input_stream";
-        json custom;
-        if (try_serialize_custom_field(jvmti, env, val, custom, deps)) {
-          field_entry["custom"] = custom;
+
+        json serialized_value = SerializeObjectValue(jvmti, env, val, deps);
+        for (auto it = serialized_value.begin(); it != serialized_value.end(); ++it) {
+          const std::string key = it.key();
+          if (key == "java_type_name" || key == "type") continue;
+          field_entry[key] = it.value();
         }
         env->DeleteLocalRef(val);
       }

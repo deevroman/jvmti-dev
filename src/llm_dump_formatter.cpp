@@ -306,6 +306,12 @@ void render_custom_value_for_llm(std::ostringstream& out, const json& custom, co
 
 void render_field_value_for_llm(std::ostringstream& out, const json& field, const ObjectRefIndex& refs,
                                 std::unordered_set<ObjectId>& visiting, int depth) {
+  const std::string value_kind = json_string_or_empty(field, "kind");
+  if (!value_kind.empty()) {
+    render_serialized_value_for_llm(out, field, refs, visiting, depth);
+    return;
+  }
+
   const std::string descriptor = json_string_or_empty(field, "java_type_name");
   if (field.find("primitive_value") != field.end()) {
     const char kind = descriptor.empty() ? '\0' : descriptor[0];

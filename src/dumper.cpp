@@ -38,6 +38,7 @@ static int control_port = 9009;
 static jrawMonitorID vmtrace_lock;
 static jlong start_time;
 static std::atomic<jlong> g_next_object_tag{1};
+static std::atomic<jmethodID> g_target_method_id{nullptr};
 static std::map<jlong, int> g_method_exit_depth_by_thread;
 
 struct MockObjectTrace {
@@ -54,10 +55,26 @@ struct MockObjectTrace {
 struct InvocationTraceContext {
   jlong thread_id = 0;
   std::map<jlong, MockObjectTrace> mock_objects;
+  jlong method_exit_callback_count = 0;
+  jlong method_exit_callback_nanos = 0;
+  jlong method_exit_fast_path_count = 0;
+  jlong mock_object_method_exit_count = 0;
+  jlong mock_call_count = 0;
 };
 
 static std::mutex g_invocation_mutex;
 static std::map<jlong, std::vector<InvocationTraceContext>> g_invocation_stacks;
+
+struct MethodExitCallbackStats {
+  jlong callback_count = 0;
+  jlong callback_nanos = 0;
+  jlong fast_path_callback_count = 0;
+  jlong mock_object_callback_count = 0;
+  jlong mock_call_count = 0;
+};
+
+static thread_local bool g_thread_has_tracked_mock_objects = false;
+static thread_local MethodExitCallbackStats g_thread_method_exit_stats;
 
 static void trace(jvmtiEnv* jvmti, const char* fmt, ...) {
   jlong current_time;
@@ -76,6 +93,31 @@ static void trace(jvmtiEnv* jvmti, const char* fmt, ...) {
   jvmti->RawMonitorExit(vmtrace_lock);
   fflush(out);
 }
+
+static jlong now_nanos(jvmtiEnv* jvmti) {
+  jlong current_time = 0;
+  jvmti->GetTime(&current_time);
+  return current_time;
+}
+
+static double nanos_to_seconds(jlong nanos) { return static_cast<double>(nanos) / 1000000000.0; }
+
+class ScopedPhaseTimer {
+ public:
+  ScopedPhaseTimer(jvmtiEnv* jvmti, const char* state, const char* phase)
+      : jvmti_(jvmti), state_(state), phase_(phase), start_nanos_(now_nanos(jvmti)) {}
+
+  ~ScopedPhaseTimer() {
+    trace(jvmti_, "JVMTI_PHASE state=%s phase=%s elapsed_seconds=%.6f", state_, phase_,
+          nanos_to_seconds(now_nanos(jvmti_) - start_nanos_));
+  }
+
+ private:
+  jvmtiEnv* jvmti_;
+  const char* state_;
+  const char* phase_;
+  jlong start_nanos_;
+};
 
 static char* fix_class_name(char* class_name) {
   // Strip 'L' and ';' from class signature
@@ -106,6 +148,14 @@ static jlong get_or_assign_object_tag(jvmtiEnv* jvmti, jobject obj) {
 
   if (jvmti->SetTag(obj, new_tag) != JVMTI_ERROR_NONE) return 0;
   return new_tag;
+}
+
+static jlong get_existing_object_tag(jvmtiEnv* jvmti, jobject obj) {
+  if (obj == nullptr) return 0;
+
+  jlong tag = 0;
+  if (jvmti->GetTag(obj, &tag) != JVMTI_ERROR_NONE) return 0;
+  return tag;
 }
 
 static void apply_runtime_config(const RuntimeConfig& runtime_config) {
@@ -194,6 +244,31 @@ static void append_mock_call(jlong thread_id, jlong object_id, const json& call)
   if (mock_it == ctx.mock_objects.end()) return;
 
   mock_it->second.calls.push_back(call);
+}
+
+static void reset_thread_method_exit_callback_stats(bool has_tracked_mock_objects) {
+  g_thread_has_tracked_mock_objects = has_tracked_mock_objects;
+  g_thread_method_exit_stats = {};
+}
+
+static void record_thread_method_exit_callback_stats(jlong elapsed_nanos, bool mock_object_exit,
+                                                     bool mock_call_recorded) {
+  g_thread_method_exit_stats.callback_count += 1;
+  g_thread_method_exit_stats.callback_nanos += elapsed_nanos;
+  if (mock_object_exit) g_thread_method_exit_stats.mock_object_callback_count += 1;
+  if (mock_call_recorded) g_thread_method_exit_stats.mock_call_count += 1;
+}
+
+static void record_thread_method_exit_fast_path_callback() {
+  g_thread_method_exit_stats.callback_count += 1;
+  g_thread_method_exit_stats.fast_path_callback_count += 1;
+}
+
+static MethodExitCallbackStats consume_thread_method_exit_callback_stats() {
+  MethodExitCallbackStats stats = g_thread_method_exit_stats;
+  g_thread_method_exit_stats = {};
+  g_thread_has_tracked_mock_objects = false;
+  return stats;
 }
 
 static bool pop_invocation_context(jlong thread_id, InvocationTraceContext& out) {
@@ -332,6 +407,50 @@ static bool method_signature_matches_target(jvmtiEnv* jvmti, jmethodID method) {
 
 static jlong resolve_object_id(jvmtiEnv* jvmti, jobject obj) { return get_or_assign_object_tag(jvmti, obj); }
 static const DumpSerializerDeps kDumpSerializerDeps{resolve_object_id};
+
+static void flush_dump_files_locked(jvmtiEnv* jvmti) {
+  ScopedPhaseTimer total_timer(jvmti, "dump_flush", "total");
+
+  std::string json_dump;
+  {
+    ScopedPhaseTimer timer(jvmti, "dump_flush", "json_pretty_print");
+    json_dump = g_dump.dump(4);
+  }
+
+  std::ofstream json_out(dump_file_path);
+  if (json_out) {
+    {
+      ScopedPhaseTimer timer(jvmti, "dump_flush", "json_write");
+      json_out << json_dump;
+      json_out.close();
+    }
+    trace(jvmti, "JVMTI_PHASE state=dump_flush phase=json_write bytes=%lld events=%lld",
+          static_cast<long long>(json_dump.size()), static_cast<long long>(g_dump.size()));
+  } else {
+    trace(jvmti, "Failed to write JSON dump to: %s", dump_file_path.c_str());
+  }
+
+  const std::string resolved_llm_dump_path = llm_dump_file_path.empty() ? DefaultLlmDumpPath(dump_file_path) : llm_dump_file_path;
+  std::string llm_dump;
+  {
+    ScopedPhaseTimer timer(jvmti, "dump_flush", "llm_format");
+    llm_dump = BuildLlmReadableDump(g_dump);
+  }
+
+  std::ofstream llm_out(resolved_llm_dump_path);
+  if (llm_out) {
+    {
+      ScopedPhaseTimer timer(jvmti, "dump_flush", "llm_write");
+      llm_out << llm_dump;
+      llm_out.close();
+    }
+    trace(jvmti, "JVMTI_PHASE state=dump_flush phase=llm_write bytes=%lld events=%lld",
+          static_cast<long long>(llm_dump.size()), static_cast<long long>(g_dump.size()));
+    trace(jvmti, "LLM-readable dump written to: %s", resolved_llm_dump_path.c_str());
+  } else {
+    trace(jvmti, "Failed to write LLM-readable dump to: %s", resolved_llm_dump_path.c_str());
+  }
+}
 
 std::string field_modifiers_to_string(jint mod) {
   std::string s;
@@ -586,20 +705,7 @@ void JNICALL VMInit(jvmtiEnv* jvmti, JNIEnv* env, jthread thread) {
 void JNICALL VMDeath(jvmtiEnv* jvmti, JNIEnv* env) {
   trace(jvmti, "VM destroyed");
   std::lock_guard<std::mutex> lock(g_dump_mutex);
-
-  std::ofstream out(dump_file_path);
-  out << g_dump.dump(4);
-  out.close();
-
-  const std::string resolved_llm_dump_path = llm_dump_file_path.empty() ? DefaultLlmDumpPath(dump_file_path) : llm_dump_file_path;
-  std::ofstream llm_out(resolved_llm_dump_path);
-  if (llm_out) {
-    llm_out << BuildLlmReadableDump(g_dump);
-    llm_out.close();
-    trace(jvmti, "LLM-readable dump written to: %s", resolved_llm_dump_path.c_str());
-  } else {
-    trace(jvmti, "Failed to write LLM-readable dump to: %s", resolved_llm_dump_path.c_str());
-  }
+  flush_dump_files_locked(jvmti);
 }
 
 void JNICALL ClassFileLoadHook(jvmtiEnv* jvmti, JNIEnv* env, jclass class_being_redefined, jobject loader,
@@ -644,6 +750,7 @@ void JNICALL ClassPrepare(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jclass k
     if (jvmti->GetLineNumberTable(method, &entry_count, &table) == JVMTI_ERROR_NONE && entry_count > 0) {
       jlocation loc = table[0].start_location;
       jvmti->SetBreakpoint(method, loc);
+      g_target_method_id.store(method, std::memory_order_relaxed);
       jvmti->Deallocate(reinterpret_cast<unsigned char*>(table));
       breakpoint_set = true;
       break;
@@ -653,6 +760,7 @@ void JNICALL ClassPrepare(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jclass k
     jlocation end = 0;
     if (jvmti->GetMethodLocation(method, &start, &end) == JVMTI_ERROR_NONE) {
       jvmti->SetBreakpoint(method, start);
+      g_target_method_id.store(method, std::memory_order_relaxed);
       breakpoint_set = true;
       break;
     }
@@ -698,6 +806,8 @@ void JNICALL GarbageCollectionStart(jvmtiEnv* jvmti) { trace(jvmti, "GC started"
 void JNICALL GarbageCollectionFinish(jvmtiEnv* jvmti) { trace(jvmti, "GC finished"); }
 
 void print_object_fields(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jmethodID method) {
+  ScopedPhaseTimer timer(jvmti, "method_start", "debug_print_object_fields");
+
   jvmtiError err;
 
   jobject this_obj = nullptr;
@@ -791,92 +901,122 @@ void JNICALL BreakpointHandler(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jme
       !method_signature_matches_target(jvmti, method))
     return;
 
-  begin_thread_method_exit_tracing(jvmti, thread);
+  trace(jvmti, "Breakpoint hit: %s.%s%s", class_name.c_str(), method_name, method_signature.c_str());
+  ScopedPhaseTimer handler_timer(jvmti, "method_start", "breakpoint_handler_total");
+
+  {
+    ScopedPhaseTimer timer(jvmti, "method_start", "enable_method_exit");
+    begin_thread_method_exit_tracing(jvmti, thread);
+  }
 
   json arguments = json::array();
   json object_refs = json::array();
   jlong this_object_id = 0;
-  jobject this_obj = nullptr;
-  if (jvmti->GetLocalObject(thread, 0, 0, &this_obj) == JVMTI_ERROR_NONE && this_obj != nullptr) {
-    this_object_id = get_or_assign_object_tag(jvmti, this_obj);
-    json this_ref = BuildObjectRef(jvmti, env, this_obj, kDumpSerializerDeps);
-    FillObjectFields(jvmti, env, this_obj, this_ref, kDumpSerializerDeps);
-    object_refs.push_back(this_ref);
-  }
-
-  jint frame_count = 0;
-  jvmtiFrameInfo frames[1];
-  jvmtiError err = jvmti->GetStackTrace(thread, 0, 1, frames, &frame_count);
-  if (err == JVMTI_ERROR_NONE && frame_count > 0) {
-    trace(jvmti, "Breakpoint hit: %s.%s%s", class_name.c_str(), method_name, method_signature.c_str());
-
-    jint count = 0;
-    jvmtiLocalVariableEntry* table = nullptr;
-    jvmtiError err = jvmti->GetLocalVariableTable(method, &count, &table);
-    if (err != JVMTI_ERROR_NONE) {
-      trace(jvmti, "GetLocalVariableTable failed: %d", err);
-    }
-
-    jint modifiers = 0;
-    jvmti->GetMethodModifiers(method, &modifiers);
-    const bool is_static_method = (modifiers & JVM_ACC_STATIC) != 0;
-    jint slot = is_static_method ? 0 : 1;
-    const std::vector<std::string> argument_descriptors = parse_method_argument_descriptors(method_signature);
-
-    for (size_t arg_index = 0; arg_index < argument_descriptors.size(); arg_index++) {
-      const std::string& descriptor = argument_descriptors[arg_index];
-      std::string arg_name = "arg" + std::to_string(arg_index);
-
-      if (table != nullptr) {
-        for (int i = 0; i < count; i++) {
-          const auto& var = table[i];
-          if (var.slot != slot || var.start_location != 0) continue;
-          if (var.name != nullptr && strcmp(var.name, "this") != 0) arg_name = var.name;
-          break;
-        }
+  {
+    ScopedPhaseTimer timer(jvmti, "method_start", "capture_this");
+    jobject this_obj = nullptr;
+    if (jvmti->GetLocalObject(thread, 0, 0, &this_obj) == JVMTI_ERROR_NONE && this_obj != nullptr) {
+      this_object_id = get_or_assign_object_tag(jvmti, this_obj);
+      json this_ref = BuildObjectRef(jvmti, env, this_obj, kDumpSerializerDeps);
+      {
+        ScopedPhaseTimer fields_timer(jvmti, "method_start", "capture_this_fields");
+        FillObjectFields(jvmti, env, this_obj, this_ref, kDumpSerializerDeps);
       }
-
-      json arg_entry;
-      arg_entry["name"] = arg_name;
-      arg_entry["java_type_name"] = descriptor;
-      arg_entry["type"] = TypeInfoToJson(ParseJvmTypeDescriptor(descriptor));
-
-      if (!descriptor.empty() && IsPrimitiveDescriptorChar(descriptor[0])) {
-        json primitive_value;
-        if (ReadLocalPrimitive(jvmti, thread, slot, descriptor[0], primitive_value)) {
-          trace(jvmti, "  arg %s = %s (%s)", arg_name.c_str(), primitive_value.dump().c_str(),
-                PrimitiveNameFromDescriptorChar(descriptor[0]).c_str());
-          arg_entry["primitive_value"] = primitive_value;
-        } else {
-          trace(jvmti, "  arg %s = <unavailable>", arg_name.c_str());
-        }
-      } else if (!descriptor.empty() && descriptor[0] == 'L') {
-        jobject obj;
-        if (jvmti->GetLocalObject(thread, 0, slot, &obj) == JVMTI_ERROR_NONE && obj != nullptr) {
-          arg_entry["object_id"] = get_or_assign_object_tag(jvmti, obj);
-
-          json ref = BuildObjectRef(jvmti, env, obj, kDumpSerializerDeps);
-          FillObjectFields(jvmti, env, obj, ref, kDumpSerializerDeps);
-          object_refs.push_back(ref);
-        }
-      } else if (!descriptor.empty() && descriptor[0] == '[') {
-        jobject arr;
-        if (jvmti->GetLocalObject(thread, 0, slot, &arr) == JVMTI_ERROR_NONE && arr != nullptr) {
-          arg_entry["array"] = BuildArrayDump(jvmti, env, arr, descriptor.c_str(), kDumpSerializerDeps);
-        }
-      }
-      arguments.push_back(arg_entry);
-      slot += descriptor_slot_width(descriptor);
+      object_refs.push_back(this_ref);
+      env->DeleteLocalRef(this_obj);
     }
-
-    if (table != nullptr) jvmti->Deallocate((unsigned char*)table);
   }
-
-  InvocationTraceContext invocation_context = build_invocation_context(jvmti, thread, object_refs);
-  json mock_objects = invocation_mock_objects_to_json(invocation_context);
-  push_invocation_context(invocation_context);
 
   {
+    ScopedPhaseTimer timer(jvmti, "method_start", "capture_arguments");
+    jint frame_count = 0;
+    jvmtiFrameInfo frames[1];
+    jvmtiError err = jvmti->GetStackTrace(thread, 0, 1, frames, &frame_count);
+    if (err == JVMTI_ERROR_NONE && frame_count > 0) {
+      jint count = 0;
+      jvmtiLocalVariableEntry* table = nullptr;
+      jvmtiError err = jvmti->GetLocalVariableTable(method, &count, &table);
+      if (err != JVMTI_ERROR_NONE) {
+        trace(jvmti, "GetLocalVariableTable failed: %d", err);
+      }
+
+      jint modifiers = 0;
+      jvmti->GetMethodModifiers(method, &modifiers);
+      const bool is_static_method = (modifiers & JVM_ACC_STATIC) != 0;
+      jint slot = is_static_method ? 0 : 1;
+      const std::vector<std::string> argument_descriptors = parse_method_argument_descriptors(method_signature);
+
+      for (size_t arg_index = 0; arg_index < argument_descriptors.size(); arg_index++) {
+        const std::string& descriptor = argument_descriptors[arg_index];
+        std::string arg_name = "arg" + std::to_string(arg_index);
+
+        if (table != nullptr) {
+          for (int i = 0; i < count; i++) {
+            const auto& var = table[i];
+            if (var.slot != slot || var.start_location != 0) continue;
+            if (var.name != nullptr && strcmp(var.name, "this") != 0) arg_name = var.name;
+            break;
+          }
+        }
+
+        json arg_entry;
+        arg_entry["name"] = arg_name;
+        arg_entry["java_type_name"] = descriptor;
+        arg_entry["type"] = TypeInfoToJson(ParseJvmTypeDescriptor(descriptor));
+
+        if (!descriptor.empty() && IsPrimitiveDescriptorChar(descriptor[0])) {
+          json primitive_value;
+          if (ReadLocalPrimitive(jvmti, thread, slot, descriptor[0], primitive_value)) {
+            trace(jvmti, "  arg %s = %s (%s)", arg_name.c_str(), primitive_value.dump().c_str(),
+                  PrimitiveNameFromDescriptorChar(descriptor[0]).c_str());
+            arg_entry["primitive_value"] = primitive_value;
+          } else {
+            trace(jvmti, "  arg %s = <unavailable>", arg_name.c_str());
+          }
+        } else if (!descriptor.empty() && descriptor[0] == 'L') {
+          jobject obj;
+          if (jvmti->GetLocalObject(thread, 0, slot, &obj) == JVMTI_ERROR_NONE && obj != nullptr) {
+            arg_entry["object_id"] = get_or_assign_object_tag(jvmti, obj);
+
+            json ref = BuildObjectRef(jvmti, env, obj, kDumpSerializerDeps);
+            {
+              ScopedPhaseTimer fields_timer(jvmti, "method_start", "capture_argument_fields");
+              FillObjectFields(jvmti, env, obj, ref, kDumpSerializerDeps);
+            }
+            object_refs.push_back(ref);
+            env->DeleteLocalRef(obj);
+          }
+        } else if (!descriptor.empty() && descriptor[0] == '[') {
+          jobject arr;
+          if (jvmti->GetLocalObject(thread, 0, slot, &arr) == JVMTI_ERROR_NONE && arr != nullptr) {
+            arg_entry["array"] = BuildArrayDump(jvmti, env, arr, descriptor.c_str(), kDumpSerializerDeps);
+            env->DeleteLocalRef(arr);
+          }
+        }
+        arguments.push_back(arg_entry);
+        slot += descriptor_slot_width(descriptor);
+      }
+
+      if (table != nullptr) jvmti->Deallocate((unsigned char*)table);
+    }
+  }
+
+  json mock_objects;
+  {
+    ScopedPhaseTimer timer(jvmti, "method_start", "build_invocation_context");
+    InvocationTraceContext invocation_context = build_invocation_context(jvmti, thread, object_refs);
+    mock_objects = invocation_mock_objects_to_json(invocation_context);
+    const bool has_tracked_mock_objects = !invocation_context.mock_objects.empty();
+    reset_thread_method_exit_callback_stats(has_tracked_mock_objects);
+    trace(jvmti, "JVMTI_PHASE state=method_start phase=build_invocation_context mock_objects=%lld object_refs=%lld",
+          static_cast<long long>(invocation_context.mock_objects.size()), static_cast<long long>(object_refs.size()));
+    trace(jvmti, "JVMTI_PHASE state=method_start phase=method_exit_fast_path target_method_id=%p tracked_mock_objects=%s",
+          g_target_method_id.load(std::memory_order_relaxed), has_tracked_mock_objects ? "true" : "false");
+    push_invocation_context(invocation_context);
+  }
+
+  {
+    ScopedPhaseTimer timer(jvmti, "method_start", "append_event_and_flush");
     std::lock_guard<std::mutex> lock(g_dump_mutex);
 
     json entry;
@@ -894,6 +1034,7 @@ void JNICALL BreakpointHandler(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jme
     entry["return_value"] = nullptr;
 
     g_dump.push_back(entry);
+    flush_dump_files_locked(jvmti);
   }
   print_object_fields(jvmti, env, thread, method);
 }
@@ -957,10 +1098,26 @@ void JNICALL MethodExitHandler(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jme
                                jboolean was_popped_by_exception, jvalue return_value) {
   if (!has_target_config()) return;
 
+  const jmethodID target_method_id = g_target_method_id.load(std::memory_order_relaxed);
+  const bool method_id_matches_target = target_method_id != nullptr && method == target_method_id;
+  if (target_method_id != nullptr && !method_id_matches_target && !g_thread_has_tracked_mock_objects) {
+    record_thread_method_exit_fast_path_callback();
+    return;
+  }
+
+  const jlong handler_start_nanos = now_nanos(jvmti);
+  jlong thread_id = get_existing_object_tag(jvmti, thread);
+  if (thread_id == 0) thread_id = get_or_assign_object_tag(jvmti, thread);
+  bool mock_object_exit = false;
+  bool mock_call_recorded = false;
+
   MethodName mn(jvmti, method);
   const char* holder = mn.holder();
   const char* method_name = mn.name();
-  if (!holder || !method_name) return;
+  if (!holder || !method_name) {
+    record_thread_method_exit_callback_stats(now_nanos(jvmti) - handler_start_nanos, false, false);
+    return;
+  }
   std::string class_name = holder;
   std::string class_fqcn = BinaryNameToFqcn(class_name);
   std::string method_name_string = method_name;
@@ -974,7 +1131,6 @@ void JNICALL MethodExitHandler(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jme
   const std::string return_descriptor = MethodReturnDescriptor(method_signature);
   const json return_type_json = TypeInfoToJson(ParseJvmTypeDescriptor(return_descriptor));
 
-  const jlong thread_id = get_or_assign_object_tag(jvmti, thread);
   jint method_modifiers = 0;
   jvmti->GetMethodModifiers(method, &method_modifiers);
   const bool is_static_method = (method_modifiers & JVM_ACC_STATIC) != 0;
@@ -984,6 +1140,7 @@ void JNICALL MethodExitHandler(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jme
     if (jvmti->GetLocalObject(thread, 0, 0, &callee_this) == JVMTI_ERROR_NONE && callee_this != nullptr) {
       const jlong callee_object_id = get_or_assign_object_tag(jvmti, callee_this);
       if (is_mock_object_tracked(thread_id, callee_object_id)) {
+        mock_object_exit = true;
         json call;
         call["class"] = class_name;
         call["class_fqcn"] = class_fqcn;
@@ -995,44 +1152,100 @@ void JNICALL MethodExitHandler(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jme
             SerializeReturnValue(jvmti, env, return_descriptor, return_value, was_popped_by_exception, kDumpSerializerDeps);
         call["was_popped_by_exception"] = was_popped_by_exception == JNI_TRUE;
         append_mock_call(thread_id, callee_object_id, call);
+        mock_call_recorded = true;
       }
       env->DeleteLocalRef(callee_this);
     }
   }
 
-  const bool is_target_method = class_name == target_class && method_name_string == target_method &&
-                                method_signature == target_method_signature;
-  if (!is_target_method) return;
+  const bool is_target_method = method_id_matches_target ||
+                                (class_name == target_class && method_name_string == target_method &&
+                                 method_signature == target_method_signature);
+  if (!is_target_method) {
+    record_thread_method_exit_callback_stats(now_nanos(jvmti) - handler_start_nanos, mock_object_exit,
+                                             mock_call_recorded);
+    return;
+  }
+
+  trace(jvmti, "Method exit hit: %s.%s%s", class_name.c_str(), method_name_string.c_str(), method_signature.c_str());
+  ScopedPhaseTimer handler_timer(jvmti, "method_exit", "method_exit_handler_total");
 
   json arguments = json::array();
   json object_refs = json::array();
   jlong this_object_id = 0;
 
-  jobject this_obj = nullptr;
-  if (jvmti->GetLocalObject(thread, 0, 0, &this_obj) == JVMTI_ERROR_NONE && this_obj != nullptr) {
-    this_object_id = get_or_assign_object_tag(jvmti, this_obj);
+  {
+    ScopedPhaseTimer timer(jvmti, "method_exit", "capture_this");
+    jobject this_obj = nullptr;
+    if (jvmti->GetLocalObject(thread, 0, 0, &this_obj) == JVMTI_ERROR_NONE && this_obj != nullptr) {
+      this_object_id = get_or_assign_object_tag(jvmti, this_obj);
 
-    json this_ref = BuildObjectRef(jvmti, env, this_obj, kDumpSerializerDeps);
-    FillObjectFields(jvmti, env, this_obj, this_ref, kDumpSerializerDeps);
-    object_refs.push_back(this_ref);
+      json this_ref = BuildObjectRef(jvmti, env, this_obj, kDumpSerializerDeps);
+      {
+        ScopedPhaseTimer fields_timer(jvmti, "method_exit", "capture_this_fields");
+        FillObjectFields(jvmti, env, this_obj, this_ref, kDumpSerializerDeps);
+      }
+      object_refs.push_back(this_ref);
+      env->DeleteLocalRef(this_obj);
+    }
   }
 
-  json ret_json =
-      SerializeReturnValue(jvmti, env, return_descriptor, return_value, was_popped_by_exception, kDumpSerializerDeps);
+  json ret_json;
+  {
+    ScopedPhaseTimer timer(jvmti, "method_exit", "serialize_return_value");
+    ret_json =
+        SerializeReturnValue(jvmti, env, return_descriptor, return_value, was_popped_by_exception, kDumpSerializerDeps);
+  }
 
   if (!was_popped_by_exception && !return_descriptor.empty() && (return_descriptor[0] == 'L' || return_descriptor[0] == '[') &&
       return_value.l != nullptr) {
+    ScopedPhaseTimer timer(jvmti, "method_exit", "capture_return_object_ref");
     jobject obj = return_value.l;
     json ref = BuildObjectRef(jvmti, env, obj, kDumpSerializerDeps);
-    FillObjectFields(jvmti, env, obj, ref, kDumpSerializerDeps);
+    {
+      ScopedPhaseTimer fields_timer(jvmti, "method_exit", "capture_return_object_fields");
+      FillObjectFields(jvmti, env, obj, ref, kDumpSerializerDeps);
+    }
     object_refs.push_back(ref);
   }
 
   InvocationTraceContext invocation_context;
-  const bool has_context = pop_invocation_context(thread_id, invocation_context);
-  const json mock_objects = has_context ? invocation_mock_objects_to_json(invocation_context) : json::array();
+  bool has_context = false;
+  json mock_objects;
+  {
+    ScopedPhaseTimer timer(jvmti, "method_exit", "pop_invocation_context");
+    has_context = pop_invocation_context(thread_id, invocation_context);
+    mock_objects = has_context ? invocation_mock_objects_to_json(invocation_context) : json::array();
+  }
+  const MethodExitCallbackStats callback_stats = consume_thread_method_exit_callback_stats();
+  if (has_context) {
+    invocation_context.method_exit_callback_count += callback_stats.callback_count;
+    invocation_context.method_exit_callback_nanos += callback_stats.callback_nanos;
+    invocation_context.method_exit_fast_path_count += callback_stats.fast_path_callback_count;
+    invocation_context.mock_object_method_exit_count += callback_stats.mock_object_callback_count;
+    invocation_context.mock_call_count += callback_stats.mock_call_count;
+  }
+  if (has_context) {
+    const double callback_seconds = nanos_to_seconds(invocation_context.method_exit_callback_nanos);
+    const jlong timed_callback_count =
+        invocation_context.method_exit_callback_count - invocation_context.method_exit_fast_path_count;
+    const double avg_callback_us = timed_callback_count == 0
+                                       ? 0.0
+                                       : static_cast<double>(invocation_context.method_exit_callback_nanos) /
+                                             static_cast<double>(timed_callback_count) / 1000.0;
+    trace(jvmti,
+          "JVMTI_PHASE state=method_exit phase=method_exit_callbacks callbacks=%lld fast_path_callbacks=%lld timed_callbacks=%lld elapsed_seconds=%.6f avg_timed_callback_us=%.3f mock_object_callbacks=%lld mock_calls=%lld",
+          static_cast<long long>(invocation_context.method_exit_callback_count),
+          static_cast<long long>(invocation_context.method_exit_fast_path_count),
+          static_cast<long long>(timed_callback_count), callback_seconds, avg_callback_us,
+          static_cast<long long>(invocation_context.mock_object_method_exit_count),
+          static_cast<long long>(invocation_context.mock_call_count));
+  } else {
+    trace(jvmti, "JVMTI_PHASE state=method_exit phase=method_exit_callbacks context_missing=true");
+  }
 
   {
+    ScopedPhaseTimer timer(jvmti, "method_exit", "append_event_and_flush");
     std::lock_guard<std::mutex> lock(g_dump_mutex);
 
     json entry;
@@ -1051,9 +1264,13 @@ void JNICALL MethodExitHandler(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jme
     entry["return_value"] = ret_json;
 
     g_dump.push_back(entry);
+    flush_dump_files_locked(jvmti);
   }
 
-  end_thread_method_exit_tracing(jvmti, thread);
+  {
+    ScopedPhaseTimer timer(jvmti, "method_exit", "disable_method_exit");
+    end_thread_method_exit_tracing(jvmti, thread);
+  }
 }
 
 jint JNICALL Agent_OnLoad(JavaVM* vm, char* options, void* reserved) {
