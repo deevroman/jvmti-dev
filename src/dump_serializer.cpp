@@ -341,10 +341,53 @@ void serialize_set_elements(jvmtiEnv* jvmti, JNIEnv* env, jobject obj, json& out
   serialize_collection_elements(jvmti, env, obj, out, deps);
 }
 
+bool is_string_reader_instance(JNIEnv* env, jobject obj) {
+  jclass string_reader_cls = env->FindClass("java/io/StringReader");
+  if (!string_reader_cls) {
+    if (env->ExceptionCheck()) env->ExceptionClear();
+    return false;
+  }
+  const bool result = env->IsInstanceOf(obj, string_reader_cls);
+  env->DeleteLocalRef(string_reader_cls);
+  return result;
+}
+
+jfieldID optional_field_id(JNIEnv* env, jclass cls, const char* name, const char* sig) {
+  jfieldID field = env->GetFieldID(cls, name, sig);
+  if (!field && env->ExceptionCheck()) env->ExceptionClear();
+  return field;
+}
+
+void serialize_string_reader(jvmtiEnv* jvmti, JNIEnv* env, jobject obj, json& out, const DumpSerializerDeps& deps) {
+  jclass cls = env->GetObjectClass(obj);
+  if (!cls) return;
+
+  jfieldID str_field = optional_field_id(env, cls, "str", "Ljava/lang/String;");
+  if (str_field) {
+    jobject str = env->GetObjectField(obj, str_field);
+    if (str) {
+      out["content"] = SerializeObjectValue(jvmti, env, str, deps);
+      env->DeleteLocalRef(str);
+    }
+  }
+
+  jfieldID length_field = optional_field_id(env, cls, "length", "I");
+  if (length_field) out["length"] = env->GetIntField(obj, length_field);
+
+  jfieldID next_field = optional_field_id(env, cls, "next", "I");
+  if (next_field) out["next"] = env->GetIntField(obj, next_field);
+
+  jfieldID mark_field = optional_field_id(env, cls, "mark", "I");
+  if (mark_field) out["mark"] = env->GetIntField(obj, mark_field);
+
+  env->DeleteLocalRef(cls);
+}
+
 const CustomFieldSerializer kCustomFieldSerializers[] = {
     {"map", is_map_instance, serialize_map_entries},
     {"list", is_list_instance, serialize_list_elements},
     {"set", is_set_instance, serialize_set_elements},
+    {"string_reader", is_string_reader_instance, serialize_string_reader},
 };
 
 bool try_serialize_custom_field(jvmtiEnv* jvmti, JNIEnv* env, jobject obj, json& out, const DumpSerializerDeps& deps) {
@@ -371,7 +414,13 @@ json serialize_object_value(jvmtiEnv* jvmti, JNIEnv* env, jobject obj, const Dum
   if (object_type.descriptor == "Ljava/lang/String;") {
     const char* chars = env->GetStringUTFChars(reinterpret_cast<jstring>(obj), nullptr);
     value["kind"] = "string";
-    value["string_value"] = chars ? chars : "";
+    const std::string string_value = chars ? chars : "";
+    json external_ref;
+    if (deps.externalize_string && deps.externalize_string(string_value, external_ref)) {
+      value["external_value"] = external_ref;
+    } else {
+      value["string_value"] = string_value;
+    }
     if (chars) env->ReleaseStringUTFChars(reinterpret_cast<jstring>(obj), chars);
     return value;
   }

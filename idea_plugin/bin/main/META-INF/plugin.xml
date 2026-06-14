@@ -1,0 +1,15 @@
+<idea-plugin>
+    <id>dev.jvmti.dumper.idea</id>
+    <name>JVMTI Dumper</name>
+    <vendor>jvmti-tools</vendor>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.java</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <codeInsight.lineMarkerProvider
+                language="JAVA"
+                implementationClass="dev.jvmti.dumper.idea.JvmtiDumperLineMarkerProvider"/>
+        <notificationGroup id="JVMTI Dumper" displayType="BALLOON"/>
+    </extensions>
+</idea-plugin>

@@ -9,6 +9,7 @@
 #include <map>
 #include <sstream>
 #include <cstring>
+#include <cstdlib>
 
 #include <nlohmann/json.hpp>
 
@@ -97,6 +98,27 @@ std::string required_value(const json& payload,
     return payload[key].get<std::string>();
 }
 
+long optional_long_value(const json& payload,
+                         const char* key,
+                         long default_value)
+{
+    if (!payload.contains(key))
+        return default_value;
+    if (payload[key].is_number_integer())
+        return payload[key].get<long>();
+    if (payload[key].is_number_unsigned())
+        return static_cast<long>(payload[key].get<unsigned long>());
+    if (payload[key].is_string())
+    {
+        char* end = nullptr;
+        const std::string raw = payload[key].get<std::string>();
+        const long parsed = strtol(raw.c_str(), &end, 10);
+        if (end != raw.c_str() && *end == '\0')
+            return parsed;
+    }
+    return default_value;
+}
+
 bool parse_runtime_payload_impl(const std::string& payload,
                                 RuntimeConfig& config,
                                 std::string& error_message)
@@ -127,6 +149,8 @@ bool parse_runtime_payload_impl(const std::string& payload,
             config.llm_dump_path = parsed["llm_dump_path"].get<std::string>();
         else if (parsed.contains("dump_llm") && parsed["dump_llm"].is_string())
             config.llm_dump_path = parsed["dump_llm"].get<std::string>();
+        config.external_string_limit =
+            optional_long_value(parsed, "external_string_limit", config.external_string_limit);
 
         return true;
     }
@@ -154,6 +178,14 @@ bool parse_runtime_payload_impl(const std::string& payload,
         config.llm_dump_path = parsed_kv.at("llm_dump_path");
     else if (parsed_kv.count("dump_llm"))
         config.llm_dump_path = parsed_kv.at("dump_llm");
+    if (parsed_kv.count("external_string_limit"))
+    {
+        char* end = nullptr;
+        const std::string raw = parsed_kv.at("external_string_limit");
+        const long parsed_limit = strtol(raw.c_str(), &end, 10);
+        if (end != raw.c_str() && *end == '\0')
+            config.external_string_limit = parsed_limit;
+    }
 
     return true;
 }

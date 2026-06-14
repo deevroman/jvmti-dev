@@ -17,6 +17,9 @@ public class SimpleMapExample {
         values.put(3, values.get(1) + values.get(2));
         return values.get(3);
     }
+//     ...
+//     int result = example.update(4);
+
 
     public static void main(String[] args) {
         SimpleMapExample example = new SimpleMapExample();

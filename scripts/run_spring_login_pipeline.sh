@@ -4,8 +4,8 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 APP_DIR="$ROOT_DIR/spring_login_example"
-PIPELINE_SCRIPT="$ROOT_DIR/scripts/run_pipeline.sh"
 RESOLVE_AGENT_LIB_SCRIPT="$ROOT_DIR/scripts/resolve_agent_lib.sh"
+TEST_GENERATORS_SCRIPT="$ROOT_DIR/scripts/run_test_generators.sh"
 
 CONFIG_FILE="$ROOT_DIR/config_spring_login.json"
 APP_MAIN="com.example.springlogin.LoginApplication"
@@ -25,8 +25,6 @@ JUNIT_JAR="$ROOT_DIR/tests_generator/lib/junit-platform-console-standalone-1.9.3
 
 LOGS_DIR=""
 DUMPS_DIR=""
-GENERATOR_CLASSES_DIR=""
-GEN_TESTS_DIR=""
 TEST_CLASSES_DIR=""
 AGENT_LOG=""
 APP_LOG=""
@@ -107,14 +105,12 @@ fi
 
 LOGS_DIR="$OUTPUT_DIR/logs"
 DUMPS_DIR="$OUTPUT_DIR/dumps"
-GENERATOR_CLASSES_DIR="$OUTPUT_DIR/generator_classes"
-GEN_TESTS_DIR="$OUTPUT_DIR/generated_tests"
 TEST_CLASSES_DIR="$OUTPUT_DIR/test_classes"
 AGENT_LOG="$LOGS_DIR/agent.log"
 APP_LOG="$LOGS_DIR/app.log"
 RESPONSE_FILE="$LOGS_DIR/login_response.txt"
 
-mkdir -p "$LOGS_DIR" "$DUMPS_DIR" "$GENERATOR_CLASSES_DIR" "$GEN_TESTS_DIR" "$TEST_CLASSES_DIR"
+mkdir -p "$LOGS_DIR" "$DUMPS_DIR" "$TEST_CLASSES_DIR"
 
 if [[ ! -f "$CONFIG_FILE" ]]; then
   echo "Config file not found: $CONFIG_FILE" >&2
@@ -184,18 +180,22 @@ if raw_llm_dump:
         cfg["llm_dump_path"] = str(llm_dump_path)
     if "dump_llm" in cfg:
         cfg["dump_llm"] = str(llm_dump_path)
+else:
+    llm_dump_path = dump_path.with_suffix(".llm.txt")
 
 effective_cfg = out_dir / "config.effective.json"
 effective_cfg.write_text(json.dumps(cfg, ensure_ascii=False, indent=2), encoding="utf-8")
 
 print(effective_cfg)
 print(dump_path)
+print(llm_dump_path)
 PY
 
 EFFECTIVE_CONFIG_FILE="$(sed -n '1p' "$TMP_CONFIG_INFO")"
 DUMP_PATH="$(sed -n '2p' "$TMP_CONFIG_INFO")"
+LLM_DUMP_PATH="$(sed -n '3p' "$TMP_CONFIG_INFO")"
 
-if [[ -z "$EFFECTIVE_CONFIG_FILE" || -z "$DUMP_PATH" ]]; then
+if [[ -z "$EFFECTIVE_CONFIG_FILE" || -z "$DUMP_PATH" || -z "$LLM_DUMP_PATH" ]]; then
   echo "Failed to prepare effective config" >&2
   exit 1
 fi
@@ -310,34 +310,13 @@ if [[ "$LLM_ONLY" -eq 1 ]]; then
 fi
 
 echo "[3/4] Running test generator"
-pushd "$ROOT_DIR" >/dev/null
-javac -cp "$JSON_JAR" -d "$GENERATOR_CLASSES_DIR" tests_generator/JsonToJUnitGenerator.java tests_generator/Main.java
-java -cp "$GENERATOR_CLASSES_DIR:$JSON_JAR" Main "$DUMP_PATH" "$GEN_TESTS_DIR"
-popd >/dev/null
-
-TEST_CLASS="$(python3 - "$DUMP_PATH" <<'PY'
-import json
-import sys
-from pathlib import Path
-
-states = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
-class_name = states[0]["class"]
-simple_name = class_name.split("/")[-1]
-print(f"{simple_name}Test")
-PY
-)"
-TEST_JAVA="$GEN_TESTS_DIR/${TEST_CLASS}.java"
-
-if [[ ! -f "$TEST_JAVA" ]]; then
-  echo "Generated test file not found: $TEST_JAVA" >&2
-  exit 1
-fi
-
-echo "[4/4] Compiling and running generated test: $TEST_CLASS"
-javac -cp "$JUNIT_JAR:$APP_RUNTIME_CP:$GEN_TESTS_DIR" -d "$TEST_CLASSES_DIR" "$TEST_JAVA"
-java -jar "$JUNIT_JAR" \
-  --class-path "$TEST_CLASSES_DIR:$APP_RUNTIME_CP" \
-  --select-class "$TEST_CLASS"
+"$TEST_GENERATORS_SCRIPT" \
+  --dump "$DUMP_PATH" \
+  --llm-dump "$LLM_DUMP_PATH" \
+  --output-dir "$OUTPUT_DIR" \
+  --runtime-classpath "$APP_RUNTIME_CP" \
+  --test-classes-dir "$TEST_CLASSES_DIR" \
+  --run-algorithmic-test
 
 echo "Spring login pipeline completed successfully."
 echo "Artifacts are in: $OUTPUT_DIR"

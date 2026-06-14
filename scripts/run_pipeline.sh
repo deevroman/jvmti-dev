@@ -4,6 +4,7 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 RESOLVE_AGENT_LIB_SCRIPT="$ROOT_DIR/scripts/resolve_agent_lib.sh"
+TEST_GENERATORS_SCRIPT="$ROOT_DIR/scripts/run_test_generators.sh"
 
 CONFIG_FILE=""
 APP_MAIN=""
@@ -118,10 +119,7 @@ fi
 LOGS_DIR="$OUTPUT_DIR/logs"
 DUMPS_DIR="$OUTPUT_DIR/dumps"
 APP_CLASSES_DIR="$OUTPUT_DIR/app_classes"
-GENERATOR_CLASSES_DIR="$OUTPUT_DIR/generator_classes"
-GEN_TESTS_DIR="$OUTPUT_DIR/generated_tests"
 TEST_CLASSES_DIR="$OUTPUT_DIR/test_classes"
-MOCKITO_EXT_DIR="$OUTPUT_DIR/mockito_ext"
 APP_LOG="$LOGS_DIR/app.stdout.log"
 
 if [[ -z "$AGENT_LOG" ]]; then
@@ -131,7 +129,7 @@ if [[ "$AGENT_LOG" != /* ]]; then
   AGENT_LOG="$ROOT_DIR/$AGENT_LOG"
 fi
 
-mkdir -p "$LOGS_DIR" "$DUMPS_DIR" "$APP_CLASSES_DIR" "$GENERATOR_CLASSES_DIR" "$GEN_TESTS_DIR" "$TEST_CLASSES_DIR"
+mkdir -p "$LOGS_DIR" "$DUMPS_DIR" "$APP_CLASSES_DIR" "$TEST_CLASSES_DIR"
 
 if [[ ! -f "$CONFIG_FILE" ]]; then
   echo "Config file not found: $CONFIG_FILE" >&2
@@ -158,6 +156,7 @@ fi
 TMP_CONFIG_INFO="$OUTPUT_DIR/config_info.txt"
 python3 - "$CONFIG_FILE" "$OUTPUT_DIR" > "$TMP_CONFIG_INFO" <<'PY'
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -191,18 +190,29 @@ if raw_llm_dump:
         cfg["llm_dump_path"] = str(llm_dump_path)
     if "dump_llm" in cfg:
         cfg["dump_llm"] = str(llm_dump_path)
+else:
+    llm_dump_path = dump_path.with_suffix(".llm.txt")
+
+external_string_limit = os.environ.get("DUMPER_EXTERNAL_STRING_LIMIT")
+if external_string_limit:
+    try:
+        cfg["external_string_limit"] = int(external_string_limit)
+    except ValueError:
+        raise SystemExit(f"Invalid DUMPER_EXTERNAL_STRING_LIMIT: {external_string_limit}")
 
 effective_cfg = out_dir / "config.effective.json"
 effective_cfg.write_text(json.dumps(cfg, ensure_ascii=False, indent=2), encoding="utf-8")
 
 print(effective_cfg)
 print(dump_path)
+print(llm_dump_path)
 PY
 
 EFFECTIVE_CONFIG_FILE="$(sed -n '1p' "$TMP_CONFIG_INFO")"
 DUMP_PATH="$(sed -n '2p' "$TMP_CONFIG_INFO")"
+LLM_DUMP_PATH="$(sed -n '3p' "$TMP_CONFIG_INFO")"
 
-if [[ -z "$EFFECTIVE_CONFIG_FILE" || -z "$DUMP_PATH" ]]; then
+if [[ -z "$EFFECTIVE_CONFIG_FILE" || -z "$DUMP_PATH" || -z "$LLM_DUMP_PATH" ]]; then
   echo "Failed to prepare effective runtime config" >&2
   exit 1
 fi
@@ -285,73 +295,13 @@ if [[ "$LLM_ONLY" -eq 1 ]]; then
 fi
 
 echo "[2/3] Running test generator"
-pushd "$ROOT_DIR" >/dev/null
-javac -cp "$JSON_JAR" -d "$GENERATOR_CLASSES_DIR" tests_generator/JsonToJUnitGenerator.java tests_generator/Main.java
-java -cp "$GENERATOR_CLASSES_DIR:$JSON_JAR" Main "$DUMP_PATH" "$GEN_TESTS_DIR"
-popd >/dev/null
-
-TEST_CLASS="$(python3 - "$DUMP_PATH" <<'PY'
-import json
-import sys
-from pathlib import Path
-
-states = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
-class_name = states[0]["class"]
-simple_name = class_name.split("/")[-1]
-print(f"{simple_name}Test")
-PY
-)"
-TEST_JAVA="$GEN_TESTS_DIR/${TEST_CLASS}.java"
-
-if [[ ! -f "$TEST_JAVA" ]]; then
-  echo "Generated test file not found: $TEST_JAVA" >&2
-  exit 1
-fi
-
-echo "[3/3] Compiling and running generated test: $TEST_CLASS"
-USES_MOCKITO=0
-if rg -q "org\\.mockito\\." "$TEST_JAVA"; then
-  USES_MOCKITO=1
-fi
-
-MOCKITO_CP=""
-MOCKITO_EXT_CP=""
-if [[ "$USES_MOCKITO" -eq 1 ]]; then
-  if [[ -z "$MOCKITO_JAR" || ! -f "$MOCKITO_JAR" ]]; then
-    echo "Generated test uses Mockito, but mockito-core jar was not found in tests_generator/lib" >&2
-    exit 1
-  fi
-
-  if [[ -z "$BYTE_BUDDY_JAR" || ! -f "$BYTE_BUDDY_JAR" || -z "$BYTE_BUDDY_AGENT_JAR" || ! -f "$BYTE_BUDDY_AGENT_JAR" || -z "$OBJENESIS_JAR" || ! -f "$OBJENESIS_JAR" ]]; then
-    echo "Generated test uses Mockito, but required runtime jars are missing." >&2
-    echo "Expected in tests_generator/lib:" >&2
-    echo "  - byte-buddy-*.jar" >&2
-    echo "  - byte-buddy-agent-*.jar" >&2
-    echo "  - objenesis-*.jar" >&2
-    exit 1
-  fi
-
-  MOCKITO_CP="$MOCKITO_JAR:$BYTE_BUDDY_JAR:$BYTE_BUDDY_AGENT_JAR:$OBJENESIS_JAR"
-
-  mkdir -p "$MOCKITO_EXT_DIR/mockito-extensions"
-  printf "mock-maker-subclass\n" > "$MOCKITO_EXT_DIR/mockito-extensions/org.mockito.plugins.MockMaker"
-  MOCKITO_EXT_CP="$MOCKITO_EXT_DIR"
-fi
-
-TEST_COMPILE_CP="$JUNIT_JAR:$RUNTIME_CLASSPATH:$GEN_TESTS_DIR"
-TEST_RUNTIME_CP="$TEST_CLASSES_DIR:$RUNTIME_CLASSPATH"
-if [[ -n "$MOCKITO_CP" ]]; then
-  TEST_COMPILE_CP="$TEST_COMPILE_CP:$MOCKITO_CP"
-  TEST_RUNTIME_CP="$TEST_RUNTIME_CP:$MOCKITO_CP"
-fi
-if [[ -n "$MOCKITO_EXT_CP" ]]; then
-  TEST_RUNTIME_CP="$TEST_RUNTIME_CP:$MOCKITO_EXT_CP"
-fi
-
-javac -cp "$TEST_COMPILE_CP" -d "$TEST_CLASSES_DIR" "$TEST_JAVA"
-java -jar "$JUNIT_JAR" \
-  --class-path "$TEST_RUNTIME_CP" \
-  --select-class "$TEST_CLASS"
+"$TEST_GENERATORS_SCRIPT" \
+  --dump "$DUMP_PATH" \
+  --llm-dump "$LLM_DUMP_PATH" \
+  --output-dir "$OUTPUT_DIR" \
+  --runtime-classpath "$RUNTIME_CLASSPATH" \
+  --test-classes-dir "$TEST_CLASSES_DIR" \
+  --run-algorithmic-test
 
 echo "Pipeline completed successfully."
 echo "Artifacts are in: $OUTPUT_DIR"

@@ -1,4 +1,5 @@
 #include <classfile_constants.h>
+#include <errno.h>
 #include <jvmti.h>
 #include <stdarg.h>
 #include <stdio.h>
@@ -16,6 +17,7 @@
 #include <string>
 #include <unordered_set>
 #include <vector>
+#include <sys/stat.h>
 
 #include "control_socket.h"
 #include "dump_serializer.h"
@@ -34,11 +36,14 @@ static std::string target_class, target_method, target_method_signature;
 static std::string dump_file_path = "dump.json";
 static std::string llm_dump_file_path;
 static std::string config_file_path;
+static std::string external_values_dir;
 static int control_port = 9009;
 static jrawMonitorID vmtrace_lock;
 static jlong start_time;
 static std::atomic<jlong> g_next_object_tag{1};
 static std::atomic<jmethodID> g_target_method_id{nullptr};
+static std::atomic<jlong> g_next_external_value_id{1};
+static long external_string_limit = 0;
 static std::map<jlong, int> g_method_exit_depth_by_thread;
 
 struct MockObjectTrace {
@@ -130,6 +135,48 @@ static std::string normalize_class_name(std::string class_name) {
   return class_name;
 }
 
+static std::string dirname_of(const std::string& path) {
+  const std::string::size_type slash = path.find_last_of('/');
+  if (slash == std::string::npos) return ".";
+  if (slash == 0) return "/";
+  return path.substr(0, slash);
+}
+
+static bool ensure_directory_exists(const std::string& path) {
+  if (path.empty()) return false;
+  if (::mkdir(path.c_str(), 0755) == 0) return true;
+  return errno == EEXIST;
+}
+
+static std::string default_external_values_dir() {
+  return dirname_of(dump_file_path) + "/external_values";
+}
+
+static bool externalize_string_value(const std::string& value, json& external_ref) {
+  if (external_string_limit <= 0) return false;
+  if (value.size() <= static_cast<size_t>(external_string_limit)) return false;
+
+  const std::string dir = external_values_dir.empty() ? default_external_values_dir() : external_values_dir;
+  if (!ensure_directory_exists(dir)) return false;
+
+  const jlong id = g_next_external_value_id.fetch_add(1);
+  std::ostringstream filename;
+  filename << "string_" << id << ".txt";
+  const std::string path = dir + "/" + filename.str();
+
+  std::ofstream out_file(path.c_str(), std::ios::binary);
+  if (!out_file) return false;
+  out_file.write(value.data(), static_cast<std::streamsize>(value.size()));
+  out_file.close();
+  if (!out_file) return false;
+
+  external_ref["type"] = "string";
+  external_ref["path"] = path;
+  external_ref["encoding"] = "utf-8";
+  external_ref["length"] = static_cast<long long>(value.size());
+  return true;
+}
+
 static bool has_target_config() {
   return !target_class.empty() && !target_method.empty() && !target_method_signature.empty();
 }
@@ -164,6 +211,7 @@ static void apply_runtime_config(const RuntimeConfig& runtime_config) {
   target_method_signature = runtime_config.target_method_signature;
   if (!runtime_config.dump_path.empty()) dump_file_path = runtime_config.dump_path;
   if (!runtime_config.llm_dump_path.empty()) llm_dump_file_path = runtime_config.llm_dump_path;
+  if (runtime_config.external_string_limit > 0) external_string_limit = runtime_config.external_string_limit;
 }
 
 static std::string json_string_or_empty(const json& node, const char* key) {
@@ -406,7 +454,7 @@ static bool method_signature_matches_target(jvmtiEnv* jvmti, jmethodID method) {
 }
 
 static jlong resolve_object_id(jvmtiEnv* jvmti, jobject obj) { return get_or_assign_object_tag(jvmti, obj); }
-static const DumpSerializerDeps kDumpSerializerDeps{resolve_object_id};
+static const DumpSerializerDeps kDumpSerializerDeps{resolve_object_id, externalize_string_value};
 
 static void flush_dump_files_locked(jvmtiEnv* jvmti) {
   ScopedPhaseTimer total_timer(jvmti, "dump_flush", "total");
@@ -904,6 +952,10 @@ void JNICALL BreakpointHandler(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jme
   trace(jvmti, "Breakpoint hit: %s.%s%s", class_name.c_str(), method_name, method_signature.c_str());
   ScopedPhaseTimer handler_timer(jvmti, "method_start", "breakpoint_handler_total");
 
+  jint method_modifiers = 0;
+  jvmti->GetMethodModifiers(method, &method_modifiers);
+  const bool is_static_method = (method_modifiers & JVM_ACC_STATIC) != 0;
+
   {
     ScopedPhaseTimer timer(jvmti, "method_start", "enable_method_exit");
     begin_thread_method_exit_tracing(jvmti, thread);
@@ -912,7 +964,7 @@ void JNICALL BreakpointHandler(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jme
   json arguments = json::array();
   json object_refs = json::array();
   jlong this_object_id = 0;
-  {
+  if (!is_static_method) {
     ScopedPhaseTimer timer(jvmti, "method_start", "capture_this");
     jobject this_obj = nullptr;
     if (jvmti->GetLocalObject(thread, 0, 0, &this_obj) == JVMTI_ERROR_NONE && this_obj != nullptr) {
@@ -940,9 +992,6 @@ void JNICALL BreakpointHandler(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jme
         trace(jvmti, "GetLocalVariableTable failed: %d", err);
       }
 
-      jint modifiers = 0;
-      jvmti->GetMethodModifiers(method, &modifiers);
-      const bool is_static_method = (modifiers & JVM_ACC_STATIC) != 0;
       jint slot = is_static_method ? 0 : 1;
       const std::vector<std::string> argument_descriptors = parse_method_argument_descriptors(method_signature);
 
@@ -1025,6 +1074,8 @@ void JNICALL BreakpointHandler(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jme
     entry["class_simple_name"] = BinaryNameToSimpleName(class_name);
     entry["method"] = method_name;
     entry["method_signature"] = method_signature;
+    entry["method_modifiers"] = method_modifiers;
+    entry["method_is_static"] = is_static_method;
     entry["method_return_type"] = TypeInfoToJson(ParseJvmTypeDescriptor(method_return_descriptor));
     entry["state_type"] = "method_start";
     entry["this_object_id"] = this_object_id;
@@ -1075,6 +1126,17 @@ JNIEXPORT bool InitArgs(char* options, jint& value1) {
   if (args.count("dump")) dump_file_path = args["dump"];
   if (args.count("llm_dump")) llm_dump_file_path = args["llm_dump"];
   if (args.count("config_file")) config_file_path = args["config_file"];
+  if (args.count("external_values_dir")) external_values_dir = args["external_values_dir"];
+  if (args.count("external_string_limit")) {
+    char* parse_end = nullptr;
+    const long parsed_limit = strtol(args["external_string_limit"].c_str(), &parse_end, 10);
+    if (parse_end == args["external_string_limit"].c_str() || *parse_end != '\0' || parsed_limit < 0) {
+      fprintf(stderr, "Invalid external_string_limit: %s\n", args["external_string_limit"].c_str());
+      value1 = JVMTI_ERROR_ILLEGAL_ARGUMENT;
+      return true;
+    }
+    external_string_limit = parsed_limit;
+  }
 
   if (args.count("control_port")) {
     char* parse_end = nullptr;
@@ -1174,7 +1236,7 @@ void JNICALL MethodExitHandler(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jme
   json object_refs = json::array();
   jlong this_object_id = 0;
 
-  {
+  if (!is_static_method) {
     ScopedPhaseTimer timer(jvmti, "method_exit", "capture_this");
     jobject this_obj = nullptr;
     if (jvmti->GetLocalObject(thread, 0, 0, &this_obj) == JVMTI_ERROR_NONE && this_obj != nullptr) {
@@ -1254,6 +1316,8 @@ void JNICALL MethodExitHandler(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jme
     entry["class_simple_name"] = BinaryNameToSimpleName(class_name);
     entry["method"] = method_name;
     entry["method_signature"] = method_signature;
+    entry["method_modifiers"] = method_modifiers;
+    entry["method_is_static"] = is_static_method;
     entry["method_return_type"] = return_type_json;
     entry["state_type"] = "method_exit";
     entry["this_object_id"] = this_object_id;

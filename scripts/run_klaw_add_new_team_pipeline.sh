@@ -4,6 +4,7 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 RESOLVE_AGENT_LIB_SCRIPT="$ROOT_DIR/scripts/resolve_agent_lib.sh"
+TEST_GENERATORS_SCRIPT="$ROOT_DIR/scripts/run_test_generators.sh"
 
 KLAW_DIR="$ROOT_DIR/jar_example/klaw_compareutils/klaw"
 KLAW_JAR="$KLAW_DIR/core/target/klaw-2.10.4.jar"
@@ -295,6 +296,11 @@ PY
     echo "Dump LLM: $LLM_DUMP_PATH"
     echo "Agent log: $AGENT_LOG"
     echo "App log: $APP_LOG"
+    echo "[5/5] Running test generator"
+    "$TEST_GENERATORS_SCRIPT" \
+      --dump "$DUMP_PATH" \
+      --llm-dump "$LLM_DUMP_PATH" \
+      --output-dir "$OUTPUT_DIR"
     exit 0
   fi
   if ! kill -0 "$APP_PID" >/dev/null 2>&1; then

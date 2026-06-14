@@ -411,6 +411,18 @@ void render_serialized_value_for_llm(std::ostringstream& out, const json& node, 
     return;
   }
   if (kind == "string") {
+    auto external_it = node.find("external_value");
+    if (external_it != node.end() && external_it->is_object()) {
+      std::ostringstream external_string;
+      external_string << "String(<external file: " << json_string_or_empty(*external_it, "path");
+      auto length_it = external_it->find("length");
+      if (length_it != external_it->end() && length_it->is_number_integer()) {
+        external_string << ", length=" << length_it->get<long long>();
+      }
+      external_string << ">)";
+      append_llm_line(out, depth, external_string.str());
+      return;
+    }
     append_llm_line(out, depth, "String(\"" + llm_escape_string(json_string_or_empty(node, "string_value")) + "\")");
     return;
   }

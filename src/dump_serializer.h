@@ -9,6 +9,7 @@
 
 struct DumpSerializerDeps {
   std::function<jlong(jvmtiEnv*, jobject)> resolve_object_id;
+  std::function<bool(const std::string&, nlohmann::json&)> externalize_string;
 };
 
 nlohmann::json BuildObjectRef(jvmtiEnv* jvmti, JNIEnv* env, jobject obj, const DumpSerializerDeps& deps);

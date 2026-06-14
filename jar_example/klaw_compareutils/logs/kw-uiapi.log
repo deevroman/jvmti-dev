@@ -1,0 +1,1041 @@
+2026-06-11T15:59:57.890+03:00  INFO 37971 --- [main] io.aiven.klaw.UiapiApplication           : Starting UiapiApplication using Java 25.0.2 with PID 37971 (/Users/deevroman/Documents/GitHub/jvmti-tools/dumper/jar_example/klaw_compareutils/klaw/core/target/classes started by deevroman in /Users/deevroman/Documents/GitHub/jvmti-tools/dumper/jar_example/klaw_compareutils/klaw)
+2026-06-11T15:59:57.893+03:00  INFO 37971 --- [main] io.aiven.klaw.UiapiApplication           : No active profile set, falling back to 1 default profile: "default"
+2026-06-11T15:59:58.305+03:00  WARN 37971 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=64043] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T15:59:58.593+03:00  WARN 37971 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=64043] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T15:59:58.660+03:00  INFO 37971 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-11T15:59:58.768+03:00  INFO 37971 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 103 ms. Found 23 JPA repository interfaces.
+2026-06-11T15:59:58.811+03:00  WARN 37971 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=64043] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T15:59:58.943+03:00  INFO 37971 --- [main] ptablePropertiesBeanFactoryPostProcessor : Post-processing PropertySource instances
+2026-06-11T15:59:58.943+03:00  INFO 37971 --- [main] c.u.j.EncryptablePropertySourceConverter : Skipping PropertySource configurationProperties [class org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource
+2026-06-11T15:59:58.944+03:00  INFO 37971 --- [main] c.u.j.EncryptablePropertySourceConverter : Skipping PropertySource servletConfigInitParams [class org.springframework.core.env.PropertySource$StubPropertySource
+2026-06-11T15:59:58.944+03:00  INFO 37971 --- [main] c.u.j.EncryptablePropertySourceConverter : Skipping PropertySource servletContextInitParams [class org.springframework.core.env.PropertySource$StubPropertySource
+2026-06-11T15:59:58.944+03:00  INFO 37971 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource systemProperties [org.springframework.core.env.PropertiesPropertySource] to EncryptableMapPropertySourceWrapper
+2026-06-11T15:59:58.944+03:00  INFO 37971 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableSystemEnvironmentPropertySourceWrapper
+2026-06-11T15:59:58.944+03:00  INFO 37971 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
+2026-06-11T15:59:58.944+03:00  INFO 37971 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource Config resource 'class path resource [application.properties]' via location 'optional:classpath:/' [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-06-11T15:59:58.944+03:00  INFO 37971 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource applicationInfo [org.springframework.boot.ApplicationInfoPropertySource] to EncryptableMapPropertySourceWrapper
+2026-06-11T15:59:58.944+03:00  INFO 37971 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource class path resource [application.properties] [org.springframework.core.io.support.ResourcePropertySource] to EncryptableMapPropertySourceWrapper
+2026-06-11T15:59:58.945+03:00  INFO 37971 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource class path resource [approval.properties] [org.springframework.core.io.support.ResourcePropertySource] to EncryptableMapPropertySourceWrapper
+2026-06-11T15:59:59.117+03:00  INFO 37971 --- [main] c.u.j.filter.DefaultLazyPropertyFilter   : Property Filter custom Bean not found with name 'encryptablePropertyFilter'. Initializing Default Property Filter
+2026-06-11T15:59:59.120+03:00  INFO 37971 --- [main] c.u.j.r.DefaultLazyPropertyResolver      : Property Resolver custom Bean not found with name 'encryptablePropertyResolver'. Initializing Default Property Resolver
+2026-06-11T15:59:59.121+03:00  INFO 37971 --- [main] c.u.j.d.DefaultLazyPropertyDetector      : Property Detector custom Bean not found with name 'encryptablePropertyDetector'. Initializing Default Property Detector
+2026-06-11T15:59:59.243+03:00  INFO 37971 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9097 (http)
+2026-06-11T15:59:59.252+03:00  INFO 37971 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-11T15:59:59.252+03:00  INFO 37971 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.49]
+2026-06-11T15:59:59.278+03:00  INFO 37971 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-06-11T15:59:59.279+03:00  INFO 37971 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1360 ms
+2026-06-11T15:59:59.320+03:00  WARN 37971 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=64043] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T15:59:59.403+03:00  INFO 37971 --- [main] io.aiven.klaw.config.DataSourceConfig    : Into Hikari datasource config.
+2026-06-11T15:59:59.406+03:00  INFO 37971 --- [main] io.aiven.klaw.config.DataSourceConfig    : Connecting to RDBMS datasource.
+2026-06-11T15:59:59.442+03:00  INFO 37971 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-11T15:59:59.584+03:00  INFO 37971 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:file:/Users/deevroman/Documents/GitHub/jvmti-tools/dumper/.artifacts/klaw_app/data/klawprodb user=KAFKAUSER
+2026-06-11T15:59:59.584+03:00  INFO 37971 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-11T15:59:59.619+03:00  INFO 37971 --- [main] liquibase.database                       : Set default schema name to PUBLIC
+2026-06-11T15:59:59.850+03:00  INFO 37971 --- [main] liquibase.changelog                      : Reading from PUBLIC.DATABASECHANGELOG
+2026-06-11T15:59:59.860+03:00  WARN 37971 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=64043] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T15:59:59.917+03:00  INFO 37971 --- [main] liquibase.ui                             : Database is up to date, no changesets to execute
+2026-06-11T15:59:59.918+03:00  INFO 37971 --- [main] liquibase.changelog                      : Reading from PUBLIC.DATABASECHANGELOG
+2026-06-11T15:59:59.929+03:00  INFO 37971 --- [main] liquibase.util                           : UPDATE SUMMARY
+2026-06-11T15:59:59.930+03:00  INFO 37971 --- [main] liquibase.util                           : Run:                          0
+2026-06-11T15:59:59.930+03:00  INFO 37971 --- [main] liquibase.util                           : Previously run:              42
+2026-06-11T15:59:59.930+03:00  INFO 37971 --- [main] liquibase.util                           : Filtered out:                 0
+2026-06-11T15:59:59.930+03:00  INFO 37971 --- [main] liquibase.util                           : -------------------------------
+2026-06-11T15:59:59.930+03:00  INFO 37971 --- [main] liquibase.util                           : Total change sets:           42
+2026-06-11T15:59:59.930+03:00  INFO 37971 --- [main] liquibase.util                           : Update summary generated
+2026-06-11T15:59:59.931+03:00  INFO 37971 --- [main] liquibase.command                        : Command execution complete
+2026-06-11T16:00:00.369+03:00  WARN 37971 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=64043] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:00:00.602+03:00  WARN 37971 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=64043] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:00:00.877+03:00  WARN 37971 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=64043] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:00:01.485+03:00  INFO 37971 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-06-11T16:00:01.524+03:00  INFO 37971 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.36.Final
+2026-06-11T16:00:01.549+03:00  INFO 37971 --- [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-06-11T16:00:01.813+03:00  INFO 37971 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-11T16:00:01.837+03:00  WARN 37971 --- [main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-11T16:00:01.842+03:00  INFO 37971 --- [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.1.214
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-06-11T16:00:02.562+03:00  INFO 37971 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-11T16:00:02.563+03:00  INFO 37971 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-11T16:00:02.748+03:00  INFO 37971 --- [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-11T16:00:03.291+03:00  INFO 37971 --- [main] io.aiven.klaw.config.ManageDatabase      : updateStaticData Loading all config.
+2026-06-11T16:00:03.316+03:00  INFO 37971 --- [main] io.aiven.klaw.config.ManageDatabase      : Load roles and permissions.
+2026-06-11T16:00:03.327+03:00  INFO 37971 --- [main] io.aiven.klaw.config.ManageDatabase      : Finished loading cluster parameters.
+2026-06-11T16:00:03.368+03:00  INFO 37971 --- [main] o.s.l.c.support.AbstractContextSource    : Property 'userDn' not set - anonymous context will be used for read-only operations
+2026-06-11T16:00:03.410+03:00  INFO 37971 --- [main] i.aiven.klaw.config.SecurityConfigNoSSO  : Db authentication configured.
+2026-06-11T16:00:03.521+03:00  WARN 37971 --- [main] io.aiven.klaw.model.enums.ApprovalType   : Unknown ApprovalType value 'TOPIC'
+2026-06-11T16:00:03.522+03:00  WARN 37971 --- [main] io.aiven.klaw.model.enums.ApprovalType   : Unknown ApprovalType value 'ACL'
+2026-06-11T16:00:03.522+03:00  WARN 37971 --- [main] io.aiven.klaw.model.enums.ApprovalType   : Unknown ApprovalType value 'SCHEMA'
+2026-06-11T16:00:03.523+03:00  WARN 37971 --- [main] io.aiven.klaw.model.enums.ApprovalType   : Unknown ApprovalType value 'CONNECTOR'
+2026-06-11T16:00:03.728+03:00  INFO 37971 --- [main] i.a.klaw.service.UtilControllerService   : Coral UI is Built == false
+2026-06-11T16:00:03.874+03:00  INFO 37971 --- [main] org.reflections.Reflections              : Reflections took 62 ms to scan 1 urls, producing 78 keys and 511 values
+2026-06-11T16:00:03.879+03:00  INFO 37971 --- [main] io.aiven.klaw.config.MigrationUtility    : Classes discovered [class io.aiven.klaw.dao.migration.MigrateData2x8x0, class io.aiven.klaw.dao.migration.MigrateData2x10x0, class io.aiven.klaw.dao.migration.MigrateData2x2x0, class io.aiven.klaw.dao.migration.MigrateData2x4x0, class io.aiven.klaw.dao.migration.MigrateData2x3x0, class io.aiven.klaw.dao.migration.MigrateData2x5x0], number of classes 6
+2026-06-11T16:00:04.094+03:00  INFO 37971 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-06-11T16:00:04.391+03:00  INFO 37971 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+2026-06-11T16:00:04.434+03:00  INFO 37971 --- [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-06-11T16:00:04.824+03:00  INFO 37971 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:/Users/deevroman/Documents/GitHub/jvmti-tools/dumper/.artifacts/klaw_app/data/klawprodb'
+2026-06-11T16:00:04.907+03:00  INFO 37971 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 9097 (http) with context path '/'
+2026-06-11T16:00:04.907+03:00  INFO 37971 --- [main] u.j.c.RefreshScopeRefreshedEventListener : Refreshing cached encryptable property sources on ServletWebServerInitializedEvent
+2026-06-11T16:00:04.908+03:00  INFO 37971 --- [main] CachingDelegateEncryptablePropertySource : Property Source systemProperties refreshed
+2026-06-11T16:00:04.908+03:00  INFO 37971 --- [main] CachingDelegateEncryptablePropertySource : Property Source systemEnvironment refreshed
+2026-06-11T16:00:04.908+03:00  INFO 37971 --- [main] CachingDelegateEncryptablePropertySource : Property Source random refreshed
+2026-06-11T16:00:04.908+03:00  INFO 37971 --- [main] CachingDelegateEncryptablePropertySource : Property Source Config resource 'class path resource [application.properties]' via location 'optional:classpath:/' refreshed
+2026-06-11T16:00:04.908+03:00  INFO 37971 --- [main] CachingDelegateEncryptablePropertySource : Property Source applicationInfo refreshed
+2026-06-11T16:00:04.908+03:00  INFO 37971 --- [main] CachingDelegateEncryptablePropertySource : Property Source class path resource [application.properties] refreshed
+2026-06-11T16:00:04.908+03:00  INFO 37971 --- [main] CachingDelegateEncryptablePropertySource : Property Source class path resource [approval.properties] refreshed
+2026-06-11T16:00:04.908+03:00  INFO 37971 --- [main] c.u.j.EncryptablePropertySourceConverter : Skipping PropertySource configurationProperties [class org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource
+2026-06-11T16:00:04.908+03:00  INFO 37971 --- [main] c.u.j.EncryptablePropertySourceConverter : Skipping PropertySource servletConfigInitParams [class org.springframework.core.env.PropertySource$StubPropertySource
+2026-06-11T16:00:04.908+03:00  INFO 37971 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource servletContextInitParams [org.springframework.web.context.support.ServletContextPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-06-11T16:00:04.908+03:00  INFO 37971 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource Management Server [org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration$LocalManagementPortPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-06-11T16:00:04.919+03:00  INFO 37971 --- [main] io.aiven.klaw.UiapiApplication           : Started UiapiApplication in 7.271 seconds (process running for 7.69)
+2026-06-11T16:00:05.066+03:00  INFO 37971 --- [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-06-11T16:00:05.070+03:00  INFO 37971 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-06-11T16:00:05.095+03:00  INFO 37971 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-11T16:00:05.096+03:00  INFO 37971 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-06-11T16:00:05.097+03:00  INFO 37971 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-06-11T16:25:28.599+03:00  INFO 43672 --- [main] io.aiven.klaw.UiapiApplication           : Starting UiapiApplication using Java 25.0.2 with PID 43672 (/Users/deevroman/Documents/GitHub/jvmti-tools/dumper/jar_example/klaw_compareutils/klaw/core/target/classes started by deevroman in /Users/deevroman/Documents/GitHub/jvmti-tools/dumper/jar_example/klaw_compareutils/klaw)
+2026-06-11T16:25:28.600+03:00  INFO 43672 --- [main] io.aiven.klaw.UiapiApplication           : No active profile set, falling back to 1 default profile: "default"
+2026-06-11T16:25:29.263+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:25:29.452+03:00  INFO 43672 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-11T16:25:29.566+03:00  INFO 43672 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 108 ms. Found 23 JPA repository interfaces.
+2026-06-11T16:25:29.726+03:00  INFO 43672 --- [main] ptablePropertiesBeanFactoryPostProcessor : Post-processing PropertySource instances
+2026-06-11T16:25:29.726+03:00  INFO 43672 --- [main] c.u.j.EncryptablePropertySourceConverter : Skipping PropertySource configurationProperties [class org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource
+2026-06-11T16:25:29.727+03:00  INFO 43672 --- [main] c.u.j.EncryptablePropertySourceConverter : Skipping PropertySource servletConfigInitParams [class org.springframework.core.env.PropertySource$StubPropertySource
+2026-06-11T16:25:29.727+03:00  INFO 43672 --- [main] c.u.j.EncryptablePropertySourceConverter : Skipping PropertySource servletContextInitParams [class org.springframework.core.env.PropertySource$StubPropertySource
+2026-06-11T16:25:29.727+03:00  INFO 43672 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource systemProperties [org.springframework.core.env.PropertiesPropertySource] to EncryptableMapPropertySourceWrapper
+2026-06-11T16:25:29.727+03:00  INFO 43672 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableSystemEnvironmentPropertySourceWrapper
+2026-06-11T16:25:29.727+03:00  INFO 43672 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
+2026-06-11T16:25:29.727+03:00  INFO 43672 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource Config resource 'class path resource [application.properties]' via location 'optional:classpath:/' [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-06-11T16:25:29.728+03:00  INFO 43672 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource applicationInfo [org.springframework.boot.ApplicationInfoPropertySource] to EncryptableMapPropertySourceWrapper
+2026-06-11T16:25:29.728+03:00  INFO 43672 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource class path resource [application.properties] [org.springframework.core.io.support.ResourcePropertySource] to EncryptableMapPropertySourceWrapper
+2026-06-11T16:25:29.728+03:00  INFO 43672 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource class path resource [approval.properties] [org.springframework.core.io.support.ResourcePropertySource] to EncryptableMapPropertySourceWrapper
+2026-06-11T16:25:29.880+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:25:29.898+03:00  INFO 43672 --- [main] c.u.j.filter.DefaultLazyPropertyFilter   : Property Filter custom Bean not found with name 'encryptablePropertyFilter'. Initializing Default Property Filter
+2026-06-11T16:25:29.901+03:00  INFO 43672 --- [main] c.u.j.r.DefaultLazyPropertyResolver      : Property Resolver custom Bean not found with name 'encryptablePropertyResolver'. Initializing Default Property Resolver
+2026-06-11T16:25:29.902+03:00  INFO 43672 --- [main] c.u.j.d.DefaultLazyPropertyDetector      : Property Detector custom Bean not found with name 'encryptablePropertyDetector'. Initializing Default Property Detector
+2026-06-11T16:25:30.025+03:00  INFO 43672 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9097 (http)
+2026-06-11T16:25:30.036+03:00  INFO 43672 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-11T16:25:30.036+03:00  INFO 43672 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.49]
+2026-06-11T16:25:30.065+03:00  INFO 43672 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-06-11T16:25:30.065+03:00  INFO 43672 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1436 ms
+2026-06-11T16:25:30.188+03:00  INFO 43672 --- [main] io.aiven.klaw.config.DataSourceConfig    : Into Hikari datasource config.
+2026-06-11T16:25:30.191+03:00  INFO 43672 --- [main] io.aiven.klaw.config.DataSourceConfig    : Connecting to RDBMS datasource.
+2026-06-11T16:25:30.222+03:00  INFO 43672 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-11T16:25:30.357+03:00  INFO 43672 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:file:/Users/deevroman/Documents/GitHub/jvmti-tools/dumper/.artifacts/klaw_app/data/klawprodb user=KAFKAUSER
+2026-06-11T16:25:30.358+03:00  INFO 43672 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-11T16:25:30.387+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:25:30.389+03:00  INFO 43672 --- [main] liquibase.database                       : Set default schema name to PUBLIC
+2026-06-11T16:25:30.629+03:00  INFO 43672 --- [main] liquibase.changelog                      : Reading from PUBLIC.DATABASECHANGELOG
+2026-06-11T16:25:30.686+03:00  INFO 43672 --- [main] liquibase.ui                             : Database is up to date, no changesets to execute
+2026-06-11T16:25:30.686+03:00  INFO 43672 --- [main] liquibase.changelog                      : Reading from PUBLIC.DATABASECHANGELOG
+2026-06-11T16:25:30.696+03:00  INFO 43672 --- [main] liquibase.util                           : UPDATE SUMMARY
+2026-06-11T16:25:30.697+03:00  INFO 43672 --- [main] liquibase.util                           : Run:                          0
+2026-06-11T16:25:30.697+03:00  INFO 43672 --- [main] liquibase.util                           : Previously run:              42
+2026-06-11T16:25:30.697+03:00  INFO 43672 --- [main] liquibase.util                           : Filtered out:                 0
+2026-06-11T16:25:30.697+03:00  INFO 43672 --- [main] liquibase.util                           : -------------------------------
+2026-06-11T16:25:30.697+03:00  INFO 43672 --- [main] liquibase.util                           : Total change sets:           42
+2026-06-11T16:25:30.697+03:00  INFO 43672 --- [main] liquibase.util                           : Update summary generated
+2026-06-11T16:25:30.698+03:00  INFO 43672 --- [main] liquibase.command                        : Command execution complete
+2026-06-11T16:25:30.896+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:25:31.278+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:25:31.404+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:25:31.915+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:25:32.098+03:00  INFO 43672 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-06-11T16:25:32.136+03:00  INFO 43672 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.36.Final
+2026-06-11T16:25:32.153+03:00  INFO 43672 --- [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-06-11T16:25:32.409+03:00  INFO 43672 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-11T16:25:32.426+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:25:32.435+03:00  WARN 43672 --- [main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-11T16:25:32.440+03:00  INFO 43672 --- [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.1.214
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-06-11T16:25:33.123+03:00  INFO 43672 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-11T16:25:33.125+03:00  INFO 43672 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-11T16:25:33.304+03:00  INFO 43672 --- [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-11T16:25:33.790+03:00  INFO 43672 --- [main] io.aiven.klaw.config.ManageDatabase      : updateStaticData Loading all config.
+2026-06-11T16:25:33.812+03:00  INFO 43672 --- [main] io.aiven.klaw.config.ManageDatabase      : Load roles and permissions.
+2026-06-11T16:25:33.823+03:00  INFO 43672 --- [main] io.aiven.klaw.config.ManageDatabase      : Finished loading cluster parameters.
+2026-06-11T16:25:33.864+03:00  INFO 43672 --- [main] o.s.l.c.support.AbstractContextSource    : Property 'userDn' not set - anonymous context will be used for read-only operations
+2026-06-11T16:25:33.906+03:00  INFO 43672 --- [main] i.aiven.klaw.config.SecurityConfigNoSSO  : Db authentication configured.
+2026-06-11T16:25:34.020+03:00  WARN 43672 --- [main] io.aiven.klaw.model.enums.ApprovalType   : Unknown ApprovalType value 'TOPIC'
+2026-06-11T16:25:34.021+03:00  WARN 43672 --- [main] io.aiven.klaw.model.enums.ApprovalType   : Unknown ApprovalType value 'ACL'
+2026-06-11T16:25:34.022+03:00  WARN 43672 --- [main] io.aiven.klaw.model.enums.ApprovalType   : Unknown ApprovalType value 'SCHEMA'
+2026-06-11T16:25:34.022+03:00  WARN 43672 --- [main] io.aiven.klaw.model.enums.ApprovalType   : Unknown ApprovalType value 'CONNECTOR'
+2026-06-11T16:25:34.212+03:00  INFO 43672 --- [main] i.a.klaw.service.UtilControllerService   : Coral UI is Built == false
+2026-06-11T16:25:34.444+03:00  INFO 43672 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-06-11T16:25:34.666+03:00  INFO 43672 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+2026-06-11T16:25:34.706+03:00  INFO 43672 --- [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-06-11T16:25:35.101+03:00  INFO 43672 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:/Users/deevroman/Documents/GitHub/jvmti-tools/dumper/.artifacts/klaw_app/data/klawprodb'
+2026-06-11T16:25:35.197+03:00  INFO 43672 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 9097 (http) with context path '/'
+2026-06-11T16:25:35.198+03:00  INFO 43672 --- [main] u.j.c.RefreshScopeRefreshedEventListener : Refreshing cached encryptable property sources on ServletWebServerInitializedEvent
+2026-06-11T16:25:35.198+03:00  INFO 43672 --- [main] CachingDelegateEncryptablePropertySource : Property Source systemProperties refreshed
+2026-06-11T16:25:35.198+03:00  INFO 43672 --- [main] CachingDelegateEncryptablePropertySource : Property Source systemEnvironment refreshed
+2026-06-11T16:25:35.198+03:00  INFO 43672 --- [main] CachingDelegateEncryptablePropertySource : Property Source random refreshed
+2026-06-11T16:25:35.198+03:00  INFO 43672 --- [main] CachingDelegateEncryptablePropertySource : Property Source Config resource 'class path resource [application.properties]' via location 'optional:classpath:/' refreshed
+2026-06-11T16:25:35.198+03:00  INFO 43672 --- [main] CachingDelegateEncryptablePropertySource : Property Source applicationInfo refreshed
+2026-06-11T16:25:35.198+03:00  INFO 43672 --- [main] CachingDelegateEncryptablePropertySource : Property Source class path resource [application.properties] refreshed
+2026-06-11T16:25:35.198+03:00  INFO 43672 --- [main] CachingDelegateEncryptablePropertySource : Property Source class path resource [approval.properties] refreshed
+2026-06-11T16:25:35.198+03:00  INFO 43672 --- [main] c.u.j.EncryptablePropertySourceConverter : Skipping PropertySource configurationProperties [class org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource
+2026-06-11T16:25:35.199+03:00  INFO 43672 --- [main] c.u.j.EncryptablePropertySourceConverter : Skipping PropertySource servletConfigInitParams [class org.springframework.core.env.PropertySource$StubPropertySource
+2026-06-11T16:25:35.199+03:00  INFO 43672 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource servletContextInitParams [org.springframework.web.context.support.ServletContextPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-06-11T16:25:35.199+03:00  INFO 43672 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource Management Server [org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration$LocalManagementPortPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-06-11T16:25:35.210+03:00  INFO 43672 --- [main] io.aiven.klaw.UiapiApplication           : Started UiapiApplication in 6.895 seconds (process running for 7.317)
+2026-06-11T16:25:42.431+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:25:42.433+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:25:42.434+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:25:42.435+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:25:42.436+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:25:42.438+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:25:42.439+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:25:42.440+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:25:42.440+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:25:42.441+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:25:42.442+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:25:44.258+03:00  INFO 43672 --- [scheduling-1] i.a.klaw.service.EnvControllerService    : Scheduled job (klaw.reloadclusterstatus.interval) : Update cluster status
+2026-06-11T16:25:52.448+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:25:52.451+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:25:52.452+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:25:52.452+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:25:52.453+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:25:52.454+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:25:52.454+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:25:52.455+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:25:52.455+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:25:52.456+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:25:52.456+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:26:02.464+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:26:02.467+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:26:02.468+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:26:02.469+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:26:02.470+03:00  WARN 43672 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53047] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:26:04.720+03:00  INFO 43672 --- [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-06-11T16:26:04.725+03:00  INFO 43672 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-06-11T16:26:04.781+03:00  INFO 43672 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-11T16:26:04.782+03:00  INFO 43672 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-06-11T16:26:04.784+03:00  INFO 43672 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-06-11T16:26:20.373+03:00  INFO 43988 --- [main] io.aiven.klaw.UiapiApplication           : Starting UiapiApplication using Java 25.0.2 with PID 43988 (/Users/deevroman/Documents/GitHub/jvmti-tools/dumper/jar_example/klaw_compareutils/klaw/core/target/classes started by deevroman in /Users/deevroman/Documents/GitHub/jvmti-tools/dumper/jar_example/klaw_compareutils/klaw)
+2026-06-11T16:26:20.374+03:00  INFO 43988 --- [main] io.aiven.klaw.UiapiApplication           : No active profile set, falling back to 1 default profile: "default"
+2026-06-11T16:26:20.776+03:00  WARN 43988 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53174] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:26:20.859+03:00  WARN 43988 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53174] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:26:20.863+03:00  WARN 43988 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53174] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:26:20.864+03:00  WARN 43988 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53174] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:26:21.102+03:00  WARN 43988 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53174] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:26:21.106+03:00  WARN 43988 --- [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53174] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:333) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T16:26:21.221+03:00  INFO 43988 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-11T17:09:03.749+03:00  INFO 9282 --- [main] io.aiven.klaw.UiapiApplication           : Starting UiapiApplication using Java 25.0.2 with PID 9282 (/Users/deevroman/Documents/GitHub/jvmti-tools/dumper/jar_example/klaw_compareutils/klaw/core/target/classes started by deevroman in /Users/deevroman/Documents/GitHub/jvmti-tools/dumper/jar_example/klaw_compareutils/klaw)
+2026-06-11T17:09:03.751+03:00  INFO 9282 --- [main] io.aiven.klaw.UiapiApplication           : No active profile set, falling back to 1 default profile: "default"
+2026-06-11T17:09:04.535+03:00  INFO 9282 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-11T17:09:04.658+03:00  INFO 9282 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 118 ms. Found 23 JPA repository interfaces.
+2026-06-11T17:09:04.827+03:00  INFO 9282 --- [main] ptablePropertiesBeanFactoryPostProcessor : Post-processing PropertySource instances
+2026-06-11T17:09:04.828+03:00  INFO 9282 --- [main] c.u.j.EncryptablePropertySourceConverter : Skipping PropertySource configurationProperties [class org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource
+2026-06-11T17:09:04.828+03:00  INFO 9282 --- [main] c.u.j.EncryptablePropertySourceConverter : Skipping PropertySource servletConfigInitParams [class org.springframework.core.env.PropertySource$StubPropertySource
+2026-06-11T17:09:04.828+03:00  INFO 9282 --- [main] c.u.j.EncryptablePropertySourceConverter : Skipping PropertySource servletContextInitParams [class org.springframework.core.env.PropertySource$StubPropertySource
+2026-06-11T17:09:04.828+03:00  INFO 9282 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource systemProperties [org.springframework.core.env.PropertiesPropertySource] to EncryptableMapPropertySourceWrapper
+2026-06-11T17:09:04.829+03:00  INFO 9282 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableSystemEnvironmentPropertySourceWrapper
+2026-06-11T17:09:04.829+03:00  INFO 9282 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
+2026-06-11T17:09:04.829+03:00  INFO 9282 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource Config resource 'class path resource [application.properties]' via location 'optional:classpath:/' [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-06-11T17:09:04.829+03:00  INFO 9282 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource applicationInfo [org.springframework.boot.ApplicationInfoPropertySource] to EncryptableMapPropertySourceWrapper
+2026-06-11T17:09:04.829+03:00  INFO 9282 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource class path resource [application.properties] [org.springframework.core.io.support.ResourcePropertySource] to EncryptableMapPropertySourceWrapper
+2026-06-11T17:09:04.829+03:00  INFO 9282 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource class path resource [approval.properties] [org.springframework.core.io.support.ResourcePropertySource] to EncryptableMapPropertySourceWrapper
+2026-06-11T17:09:05.019+03:00  INFO 9282 --- [main] c.u.j.filter.DefaultLazyPropertyFilter   : Property Filter custom Bean not found with name 'encryptablePropertyFilter'. Initializing Default Property Filter
+2026-06-11T17:09:05.022+03:00  INFO 9282 --- [main] c.u.j.r.DefaultLazyPropertyResolver      : Property Resolver custom Bean not found with name 'encryptablePropertyResolver'. Initializing Default Property Resolver
+2026-06-11T17:09:05.023+03:00  INFO 9282 --- [main] c.u.j.d.DefaultLazyPropertyDetector      : Property Detector custom Bean not found with name 'encryptablePropertyDetector'. Initializing Default Property Detector
+2026-06-11T17:09:05.173+03:00  INFO 9282 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9097 (http)
+2026-06-11T17:09:05.182+03:00  INFO 9282 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-11T17:09:05.183+03:00  INFO 9282 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.49]
+2026-06-11T17:09:05.225+03:00  INFO 9282 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-06-11T17:09:05.225+03:00  INFO 9282 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1449 ms
+2026-06-11T17:09:05.346+03:00  INFO 9282 --- [main] io.aiven.klaw.config.DataSourceConfig    : Into Hikari datasource config.
+2026-06-11T17:09:05.350+03:00  INFO 9282 --- [main] io.aiven.klaw.config.DataSourceConfig    : Connecting to RDBMS datasource.
+2026-06-11T17:09:05.382+03:00  INFO 9282 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-11T17:09:05.531+03:00  INFO 9282 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:file:/Users/deevroman/Documents/GitHub/jvmti-tools/dumper/.artifacts/klaw_app/data/klawprodb user=KAFKAUSER
+2026-06-11T17:09:05.532+03:00  INFO 9282 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-11T17:09:05.565+03:00  INFO 9282 --- [main] liquibase.database                       : Set default schema name to PUBLIC
+2026-06-11T17:09:05.834+03:00  INFO 9282 --- [main] liquibase.changelog                      : Reading from PUBLIC.DATABASECHANGELOG
+2026-06-11T17:09:05.903+03:00  INFO 9282 --- [main] liquibase.ui                             : Database is up to date, no changesets to execute
+2026-06-11T17:09:05.904+03:00  INFO 9282 --- [main] liquibase.changelog                      : Reading from PUBLIC.DATABASECHANGELOG
+2026-06-11T17:09:05.916+03:00  INFO 9282 --- [main] liquibase.util                           : UPDATE SUMMARY
+2026-06-11T17:09:05.916+03:00  INFO 9282 --- [main] liquibase.util                           : Run:                          0
+2026-06-11T17:09:05.916+03:00  INFO 9282 --- [main] liquibase.util                           : Previously run:              42
+2026-06-11T17:09:05.916+03:00  INFO 9282 --- [main] liquibase.util                           : Filtered out:                 0
+2026-06-11T17:09:05.916+03:00  INFO 9282 --- [main] liquibase.util                           : -------------------------------
+2026-06-11T17:09:05.916+03:00  INFO 9282 --- [main] liquibase.util                           : Total change sets:           42
+2026-06-11T17:09:05.916+03:00  INFO 9282 --- [main] liquibase.util                           : Update summary generated
+2026-06-11T17:09:05.917+03:00  INFO 9282 --- [main] liquibase.command                        : Command execution complete
+2026-06-11T17:09:07.463+03:00  INFO 9282 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-06-11T17:09:07.497+03:00  INFO 9282 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.36.Final
+2026-06-11T17:09:07.514+03:00  INFO 9282 --- [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-06-11T17:09:07.778+03:00  INFO 9282 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-11T17:09:07.803+03:00  WARN 9282 --- [main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-11T17:09:07.810+03:00  INFO 9282 --- [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.1.214
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-06-11T17:09:08.535+03:00  INFO 9282 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-11T17:09:08.537+03:00  INFO 9282 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-11T17:09:08.730+03:00  INFO 9282 --- [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-11T17:09:09.267+03:00  INFO 9282 --- [main] io.aiven.klaw.config.ManageDatabase      : updateStaticData Loading all config.
+2026-06-11T17:09:09.288+03:00  INFO 9282 --- [main] io.aiven.klaw.config.ManageDatabase      : Load roles and permissions.
+2026-06-11T17:09:09.300+03:00  INFO 9282 --- [main] io.aiven.klaw.config.ManageDatabase      : Finished loading cluster parameters.
+2026-06-11T17:09:09.341+03:00  INFO 9282 --- [main] o.s.l.c.support.AbstractContextSource    : Property 'userDn' not set - anonymous context will be used for read-only operations
+2026-06-11T17:09:09.381+03:00  INFO 9282 --- [main] i.aiven.klaw.config.SecurityConfigNoSSO  : Db authentication configured.
+2026-06-11T17:09:09.495+03:00  WARN 9282 --- [main] io.aiven.klaw.model.enums.ApprovalType   : Unknown ApprovalType value 'TOPIC'
+2026-06-11T17:09:09.496+03:00  WARN 9282 --- [main] io.aiven.klaw.model.enums.ApprovalType   : Unknown ApprovalType value 'ACL'
+2026-06-11T17:09:09.496+03:00  WARN 9282 --- [main] io.aiven.klaw.model.enums.ApprovalType   : Unknown ApprovalType value 'SCHEMA'
+2026-06-11T17:09:09.497+03:00  WARN 9282 --- [main] io.aiven.klaw.model.enums.ApprovalType   : Unknown ApprovalType value 'CONNECTOR'
+2026-06-11T17:09:09.688+03:00  INFO 9282 --- [main] i.a.klaw.service.UtilControllerService   : Coral UI is Built == false
+2026-06-11T17:09:09.812+03:00  INFO 9282 --- [main] org.reflections.Reflections              : Reflections took 54 ms to scan 1 urls, producing 78 keys and 511 values
+2026-06-11T17:09:09.818+03:00  INFO 9282 --- [main] io.aiven.klaw.config.MigrationUtility    : Classes discovered [class io.aiven.klaw.dao.migration.MigrateData2x8x0, class io.aiven.klaw.dao.migration.MigrateData2x10x0, class io.aiven.klaw.dao.migration.MigrateData2x2x0, class io.aiven.klaw.dao.migration.MigrateData2x4x0, class io.aiven.klaw.dao.migration.MigrateData2x3x0, class io.aiven.klaw.dao.migration.MigrateData2x5x0], number of classes 6
+2026-06-11T17:09:10.024+03:00  INFO 9282 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-06-11T17:09:10.254+03:00  INFO 9282 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+2026-06-11T17:09:10.292+03:00  INFO 9282 --- [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-06-11T17:09:10.705+03:00  INFO 9282 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:/Users/deevroman/Documents/GitHub/jvmti-tools/dumper/.artifacts/klaw_app/data/klawprodb'
+2026-06-11T17:09:10.808+03:00  INFO 9282 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 9097 (http) with context path '/'
+2026-06-11T17:09:10.809+03:00  INFO 9282 --- [main] u.j.c.RefreshScopeRefreshedEventListener : Refreshing cached encryptable property sources on ServletWebServerInitializedEvent
+2026-06-11T17:09:10.809+03:00  INFO 9282 --- [main] CachingDelegateEncryptablePropertySource : Property Source systemProperties refreshed
+2026-06-11T17:09:10.809+03:00  INFO 9282 --- [main] CachingDelegateEncryptablePropertySource : Property Source systemEnvironment refreshed
+2026-06-11T17:09:10.809+03:00  INFO 9282 --- [main] CachingDelegateEncryptablePropertySource : Property Source random refreshed
+2026-06-11T17:09:10.809+03:00  INFO 9282 --- [main] CachingDelegateEncryptablePropertySource : Property Source Config resource 'class path resource [application.properties]' via location 'optional:classpath:/' refreshed
+2026-06-11T17:09:10.809+03:00  INFO 9282 --- [main] CachingDelegateEncryptablePropertySource : Property Source applicationInfo refreshed
+2026-06-11T17:09:10.809+03:00  INFO 9282 --- [main] CachingDelegateEncryptablePropertySource : Property Source class path resource [application.properties] refreshed
+2026-06-11T17:09:10.809+03:00  INFO 9282 --- [main] CachingDelegateEncryptablePropertySource : Property Source class path resource [approval.properties] refreshed
+2026-06-11T17:09:10.809+03:00  INFO 9282 --- [main] c.u.j.EncryptablePropertySourceConverter : Skipping PropertySource configurationProperties [class org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource
+2026-06-11T17:09:10.809+03:00  INFO 9282 --- [main] c.u.j.EncryptablePropertySourceConverter : Skipping PropertySource servletConfigInitParams [class org.springframework.core.env.PropertySource$StubPropertySource
+2026-06-11T17:09:10.809+03:00  INFO 9282 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource servletContextInitParams [org.springframework.web.context.support.ServletContextPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-06-11T17:09:10.809+03:00  INFO 9282 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource Management Server [org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration$LocalManagementPortPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-06-11T17:09:10.823+03:00  INFO 9282 --- [main] io.aiven.klaw.UiapiApplication           : Started UiapiApplication in 7.282 seconds (process running for 508.208)
+2026-06-11T17:09:19.833+03:00  INFO 9282 --- [scheduling-1] i.a.klaw.service.EnvControllerService    : Scheduled job (klaw.reloadclusterstatus.interval) : Update cluster status
+2026-06-11T17:09:26.320+03:00  INFO 9282 --- [http-nio-9097-exec-1] o.apache.tomcat.util.http.parser.Cookie  : A cookie header was received [session name=s%3AddwECJF0lSucixRcKZC-sl9Ir69gyIjb.jsBUBsRLtNd8i4LborG8i%2FFte18zh6o7SMK1Pz9uSXk;] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+2026-06-11T17:09:26.326+03:00  INFO 9282 --- [http-nio-9097-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-11T17:09:26.326+03:00  INFO 9282 --- [http-nio-9097-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-06-11T17:09:26.328+03:00  INFO 9282 --- [http-nio-9097-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-06-11T17:09:26.804+03:00  WARN 9282 --- [http-nio-9097-exec-9] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource assets/coral/klaw_logo-8b4dc757.png.]
+2026-06-11T17:09:49.258+03:00  INFO 9282 --- [http-nio-9097-exec-5] i.a.k.s.UsersTeamsControllerService      : addNewTeam TeamModel(teamname=dfvdfv, teammail=eer@ru.ru, teamphone=212323423434, contactperson=dfjkvndfv dfvdfv, tenantId=null, teamId=null, app=, showDeleteTeam=false, tenantName=null, envList=[])
+2026-06-11T17:09:49.287+03:00  INFO 9282 --- [http-nio-9097-exec-5] i.a.k.controller.UsersTeamsController    : CALLSITE_METRIC method=addNewTeam caller=UsersTeamsController.addNewTeam elapsed_nanos=33391584 elapsed_seconds=0.033391584
+2026-06-11T17:27:50.699+03:00  INFO 9282 --- [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-06-11T17:27:50.708+03:00  INFO 9282 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-06-11T17:27:50.751+03:00  INFO 9282 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-11T17:27:50.753+03:00  INFO 9282 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-06-11T17:27:50.754+03:00  INFO 9282 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-06-11T17:42:01.281+03:00  INFO 19423 --- [main] io.aiven.klaw.UiapiApplication           : Starting UiapiApplication using Java 25.0.2 with PID 19423 (/Users/deevroman/Documents/GitHub/jvmti-tools/dumper/jar_example/klaw_compareutils/klaw/core/target/classes started by deevroman in /Users/deevroman/Documents/GitHub/jvmti-tools/dumper/jar_example/klaw_compareutils/klaw)
+2026-06-11T17:42:01.282+03:00  INFO 19423 --- [main] io.aiven.klaw.UiapiApplication           : No active profile set, falling back to 1 default profile: "default"
+2026-06-11T17:42:02.360+03:00  INFO 19423 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-11T17:42:02.488+03:00  INFO 19423 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 122 ms. Found 23 JPA repository interfaces.
+2026-06-11T17:42:02.684+03:00  INFO 19423 --- [main] ptablePropertiesBeanFactoryPostProcessor : Post-processing PropertySource instances
+2026-06-11T17:42:02.684+03:00  INFO 19423 --- [main] c.u.j.EncryptablePropertySourceConverter : Skipping PropertySource configurationProperties [class org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource
+2026-06-11T17:42:02.685+03:00  INFO 19423 --- [main] c.u.j.EncryptablePropertySourceConverter : Skipping PropertySource servletConfigInitParams [class org.springframework.core.env.PropertySource$StubPropertySource
+2026-06-11T17:42:02.685+03:00  INFO 19423 --- [main] c.u.j.EncryptablePropertySourceConverter : Skipping PropertySource servletContextInitParams [class org.springframework.core.env.PropertySource$StubPropertySource
+2026-06-11T17:42:02.685+03:00  INFO 19423 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource systemProperties [org.springframework.core.env.PropertiesPropertySource] to EncryptableMapPropertySourceWrapper
+2026-06-11T17:42:02.686+03:00  INFO 19423 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableSystemEnvironmentPropertySourceWrapper
+2026-06-11T17:42:02.686+03:00  INFO 19423 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
+2026-06-11T17:42:02.686+03:00  INFO 19423 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource Config resource 'class path resource [application.properties]' via location 'optional:classpath:/' [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-06-11T17:42:02.686+03:00  INFO 19423 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource applicationInfo [org.springframework.boot.ApplicationInfoPropertySource] to EncryptableMapPropertySourceWrapper
+2026-06-11T17:42:02.686+03:00  INFO 19423 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource class path resource [application.properties] [org.springframework.core.io.support.ResourcePropertySource] to EncryptableMapPropertySourceWrapper
+2026-06-11T17:42:02.686+03:00  INFO 19423 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource class path resource [approval.properties] [org.springframework.core.io.support.ResourcePropertySource] to EncryptableMapPropertySourceWrapper
+2026-06-11T17:42:02.881+03:00  INFO 19423 --- [main] c.u.j.filter.DefaultLazyPropertyFilter   : Property Filter custom Bean not found with name 'encryptablePropertyFilter'. Initializing Default Property Filter
+2026-06-11T17:42:02.885+03:00  INFO 19423 --- [main] c.u.j.r.DefaultLazyPropertyResolver      : Property Resolver custom Bean not found with name 'encryptablePropertyResolver'. Initializing Default Property Resolver
+2026-06-11T17:42:02.886+03:00  INFO 19423 --- [main] c.u.j.d.DefaultLazyPropertyDetector      : Property Detector custom Bean not found with name 'encryptablePropertyDetector'. Initializing Default Property Detector
+2026-06-11T17:42:03.038+03:00  INFO 19423 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9097 (http)
+2026-06-11T17:42:03.048+03:00  INFO 19423 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-11T17:42:03.049+03:00  INFO 19423 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.49]
+2026-06-11T17:42:03.093+03:00  INFO 19423 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-06-11T17:42:03.094+03:00  INFO 19423 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1778 ms
+2026-06-11T17:42:03.232+03:00  INFO 19423 --- [main] io.aiven.klaw.config.DataSourceConfig    : Into Hikari datasource config.
+2026-06-11T17:42:03.235+03:00  INFO 19423 --- [main] io.aiven.klaw.config.DataSourceConfig    : Connecting to RDBMS datasource.
+2026-06-11T17:42:03.269+03:00  INFO 19423 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-11T17:42:03.473+03:00  INFO 19423 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:file:/Users/deevroman/Documents/GitHub/jvmti-tools/dumper/.artifacts/klaw_app/data/klawprodb user=KAFKAUSER
+2026-06-11T17:42:03.474+03:00  INFO 19423 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-11T17:42:03.541+03:00  INFO 19423 --- [main] liquibase.database                       : Set default schema name to PUBLIC
+2026-06-11T17:42:03.824+03:00  INFO 19423 --- [main] liquibase.changelog                      : Reading from PUBLIC.DATABASECHANGELOG
+2026-06-11T17:42:03.888+03:00  INFO 19423 --- [main] liquibase.ui                             : Database is up to date, no changesets to execute
+2026-06-11T17:42:03.889+03:00  INFO 19423 --- [main] liquibase.changelog                      : Reading from PUBLIC.DATABASECHANGELOG
+2026-06-11T17:42:03.901+03:00  INFO 19423 --- [main] liquibase.util                           : UPDATE SUMMARY
+2026-06-11T17:42:03.901+03:00  INFO 19423 --- [main] liquibase.util                           : Run:                          0
+2026-06-11T17:42:03.901+03:00  INFO 19423 --- [main] liquibase.util                           : Previously run:              42
+2026-06-11T17:42:03.901+03:00  INFO 19423 --- [main] liquibase.util                           : Filtered out:                 0
+2026-06-11T17:42:03.901+03:00  INFO 19423 --- [main] liquibase.util                           : -------------------------------
+2026-06-11T17:42:03.901+03:00  INFO 19423 --- [main] liquibase.util                           : Total change sets:           42
+2026-06-11T17:42:03.901+03:00  INFO 19423 --- [main] liquibase.util                           : Update summary generated
+2026-06-11T17:42:03.902+03:00  INFO 19423 --- [main] liquibase.command                        : Command execution complete
+2026-06-11T17:42:05.447+03:00  INFO 19423 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-06-11T17:42:05.480+03:00  INFO 19423 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.36.Final
+2026-06-11T17:42:05.499+03:00  INFO 19423 --- [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-06-11T17:42:05.812+03:00  INFO 19423 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-11T17:42:05.841+03:00  WARN 19423 --- [main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-11T17:42:05.847+03:00  INFO 19423 --- [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.1.214
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-06-11T17:42:06.615+03:00  INFO 19423 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-11T17:42:06.617+03:00  INFO 19423 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-11T17:42:06.824+03:00  INFO 19423 --- [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-11T17:42:07.441+03:00  INFO 19423 --- [main] io.aiven.klaw.config.ManageDatabase      : updateStaticData Loading all config.
+2026-06-11T17:42:07.467+03:00  INFO 19423 --- [main] io.aiven.klaw.config.ManageDatabase      : Load roles and permissions.
+2026-06-11T17:42:07.479+03:00  INFO 19423 --- [main] io.aiven.klaw.config.ManageDatabase      : Finished loading cluster parameters.
+2026-06-11T17:42:07.522+03:00  INFO 19423 --- [main] o.s.l.c.support.AbstractContextSource    : Property 'userDn' not set - anonymous context will be used for read-only operations
+2026-06-11T17:42:07.570+03:00  INFO 19423 --- [main] i.aiven.klaw.config.SecurityConfigNoSSO  : Db authentication configured.
+2026-06-11T17:42:07.686+03:00  WARN 19423 --- [main] io.aiven.klaw.model.enums.ApprovalType   : Unknown ApprovalType value 'TOPIC'
+2026-06-11T17:42:07.687+03:00  WARN 19423 --- [main] io.aiven.klaw.model.enums.ApprovalType   : Unknown ApprovalType value 'ACL'
+2026-06-11T17:42:07.687+03:00  WARN 19423 --- [main] io.aiven.klaw.model.enums.ApprovalType   : Unknown ApprovalType value 'SCHEMA'
+2026-06-11T17:42:07.688+03:00  WARN 19423 --- [main] io.aiven.klaw.model.enums.ApprovalType   : Unknown ApprovalType value 'CONNECTOR'
+2026-06-11T17:42:07.889+03:00  INFO 19423 --- [main] i.a.klaw.service.UtilControllerService   : Coral UI is Built == false
+2026-06-11T17:42:08.016+03:00  INFO 19423 --- [main] org.reflections.Reflections              : Reflections took 64 ms to scan 1 urls, producing 78 keys and 511 values
+2026-06-11T17:42:08.021+03:00  INFO 19423 --- [main] io.aiven.klaw.config.MigrationUtility    : Classes discovered [class io.aiven.klaw.dao.migration.MigrateData2x8x0, class io.aiven.klaw.dao.migration.MigrateData2x10x0, class io.aiven.klaw.dao.migration.MigrateData2x2x0, class io.aiven.klaw.dao.migration.MigrateData2x4x0, class io.aiven.klaw.dao.migration.MigrateData2x3x0, class io.aiven.klaw.dao.migration.MigrateData2x5x0], number of classes 6
+2026-06-11T17:42:08.228+03:00  INFO 19423 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-06-11T17:42:08.452+03:00  INFO 19423 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+2026-06-11T17:42:08.497+03:00  INFO 19423 --- [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-06-11T17:42:08.914+03:00  INFO 19423 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:/Users/deevroman/Documents/GitHub/jvmti-tools/dumper/.artifacts/klaw_app/data/klawprodb'
+2026-06-11T17:42:09.006+03:00  INFO 19423 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 9097 (http) with context path '/'
+2026-06-11T17:42:09.007+03:00  INFO 19423 --- [main] u.j.c.RefreshScopeRefreshedEventListener : Refreshing cached encryptable property sources on ServletWebServerInitializedEvent
+2026-06-11T17:42:09.007+03:00  INFO 19423 --- [main] CachingDelegateEncryptablePropertySource : Property Source systemProperties refreshed
+2026-06-11T17:42:09.007+03:00  INFO 19423 --- [main] CachingDelegateEncryptablePropertySource : Property Source systemEnvironment refreshed
+2026-06-11T17:42:09.007+03:00  INFO 19423 --- [main] CachingDelegateEncryptablePropertySource : Property Source random refreshed
+2026-06-11T17:42:09.007+03:00  INFO 19423 --- [main] CachingDelegateEncryptablePropertySource : Property Source Config resource 'class path resource [application.properties]' via location 'optional:classpath:/' refreshed
+2026-06-11T17:42:09.007+03:00  INFO 19423 --- [main] CachingDelegateEncryptablePropertySource : Property Source applicationInfo refreshed
+2026-06-11T17:42:09.007+03:00  INFO 19423 --- [main] CachingDelegateEncryptablePropertySource : Property Source class path resource [application.properties] refreshed
+2026-06-11T17:42:09.007+03:00  INFO 19423 --- [main] CachingDelegateEncryptablePropertySource : Property Source class path resource [approval.properties] refreshed
+2026-06-11T17:42:09.007+03:00  INFO 19423 --- [main] c.u.j.EncryptablePropertySourceConverter : Skipping PropertySource configurationProperties [class org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource
+2026-06-11T17:42:09.007+03:00  INFO 19423 --- [main] c.u.j.EncryptablePropertySourceConverter : Skipping PropertySource servletConfigInitParams [class org.springframework.core.env.PropertySource$StubPropertySource
+2026-06-11T17:42:09.007+03:00  INFO 19423 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource servletContextInitParams [org.springframework.web.context.support.ServletContextPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-06-11T17:42:09.007+03:00  INFO 19423 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource Management Server [org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration$LocalManagementPortPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-06-11T17:42:09.020+03:00  INFO 19423 --- [main] io.aiven.klaw.UiapiApplication           : Started UiapiApplication in 8.002 seconds (process running for 832.452)
+2026-06-11T17:42:18.032+03:00  INFO 19423 --- [scheduling-1] i.a.klaw.service.EnvControllerService    : Scheduled job (klaw.reloadclusterstatus.interval) : Update cluster status
+2026-06-11T18:11:06.759+03:00  INFO 19423 --- [http-nio-9097-exec-1] o.apache.tomcat.util.http.parser.Cookie  : A cookie header was received [session name=s%3AddwECJF0lSucixRcKZC-sl9Ir69gyIjb.jsBUBsRLtNd8i4LborG8i%2FFte18zh6o7SMK1Pz9uSXk;] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+2026-06-11T18:11:06.765+03:00  INFO 19423 --- [http-nio-9097-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-11T18:11:06.765+03:00  INFO 19423 --- [http-nio-9097-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-06-11T18:11:06.769+03:00  INFO 19423 --- [http-nio-9097-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2026-06-11T18:11:07.107+03:00  WARN 19423 --- [http-nio-9097-exec-4] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource assets/coral/klaw_logo-8b4dc757.png.]
+2026-06-11T18:12:36.365+03:00  INFO 19423 --- [http-nio-9097-exec-6] i.a.k.s.AnalyticsControllerService       : Added Sheet Title(display=true, text=Topics per cluster (Total 0), position=bottom, fontColor=red, fontFamily=null, fontStyle=null)
+2026-06-11T18:12:36.371+03:00  INFO 19423 --- [http-nio-9097-exec-6] i.a.k.s.AnalyticsControllerService       : Added Sheet Title(display=true, text=Partitions per cluster (Total 0), position=bottom, fontColor=red, fontFamily=null, fontStyle=null)
+2026-06-11T18:12:36.371+03:00  WARN 19423 --- [http-nio-9097-exec-6] o.a.poi.xssf.usermodel.XSSFWorkbook      : Sheet 'Topics in all clusters (all teams)' will be added with a trimmed name 'Topics in all clusters (all tea' for MS Excel compliance.
+2026-06-11T18:12:36.376+03:00  INFO 19423 --- [http-nio-9097-exec-6] i.a.k.s.AnalyticsControllerService       : Added Sheet Title(display=true, text=Topics in all clusters (all teams) (Total 0), position=bottom, fontColor=red, fontFamily=null, fontStyle=null)
+2026-06-11T18:12:36.381+03:00  INFO 19423 --- [http-nio-9097-exec-6] i.a.k.s.AnalyticsControllerService       : Added Sheet Title(display=true, text=Acls per cluster (Total 0), position=bottom, fontColor=red, fontFamily=null, fontStyle=null)
+2026-06-11T18:12:36.386+03:00  INFO 19423 --- [http-nio-9097-exec-6] i.a.k.s.AnalyticsControllerService       : Added Sheet Title(display=true, text=Producer Acls (all teams) (Total 0), position=bottom, fontColor=red, fontFamily=null, fontStyle=null)
+2026-06-11T18:12:36.391+03:00  INFO 19423 --- [http-nio-9097-exec-6] i.a.k.s.AnalyticsControllerService       : Added Sheet Title(display=true, text=Consumer Acls (all teams) (Total 0), position=bottom, fontColor=red, fontFamily=null, fontStyle=null)
+2026-06-11T18:12:36.402+03:00  INFO 19423 --- [http-nio-9097-exec-6] i.a.k.s.AnalyticsControllerService       : Added Sheet Title(display=true, text=Approved requests per day (Total 0), position=bottom, fontColor=red, fontFamily=null, fontStyle=null)
+2026-06-11T18:12:36.407+03:00  INFO 19423 --- [http-nio-9097-exec-6] i.a.k.s.AnalyticsControllerService       : Added Sheet Topics
+2026-06-11T18:12:36.412+03:00  INFO 19423 --- [http-nio-9097-exec-6] i.a.k.s.AnalyticsControllerService       : Added Sheet ConsumerGroups
+2026-06-11T18:12:36.412+03:00  INFO 19423 --- [http-nio-9097-exec-6] i.a.k.s.AnalyticsControllerService       : Report generated
+2026-06-11T18:13:42.803+03:00  INFO 19423 --- [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-06-11T18:13:42.810+03:00  INFO 19423 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-06-11T18:13:42.858+03:00  INFO 19423 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-11T18:13:42.865+03:00  INFO 19423 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-06-11T18:13:42.869+03:00  INFO 19423 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-06-11T18:16:13.162+03:00  INFO 34153 --- [main] io.aiven.klaw.UiapiApplication           : Starting UiapiApplication using Java 25.0.2 with PID 34153 (/Users/deevroman/Documents/GitHub/jvmti-tools/dumper/jar_example/klaw_compareutils/klaw/core/target/classes started by deevroman in /Users/deevroman/Documents/GitHub/jvmti-tools/dumper/jar_example/klaw_compareutils/klaw)
+2026-06-11T18:16:13.163+03:00  INFO 34153 --- [main] io.aiven.klaw.UiapiApplication           : No active profile set, falling back to 1 default profile: "default"
+2026-06-11T18:16:13.987+03:00  INFO 34153 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-11T18:16:14.098+03:00  INFO 34153 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 105 ms. Found 23 JPA repository interfaces.
+2026-06-11T18:16:14.273+03:00  INFO 34153 --- [main] ptablePropertiesBeanFactoryPostProcessor : Post-processing PropertySource instances
+2026-06-11T18:16:14.274+03:00  INFO 34153 --- [main] c.u.j.EncryptablePropertySourceConverter : Skipping PropertySource configurationProperties [class org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource
+2026-06-11T18:16:14.274+03:00  INFO 34153 --- [main] c.u.j.EncryptablePropertySourceConverter : Skipping PropertySource servletConfigInitParams [class org.springframework.core.env.PropertySource$StubPropertySource
+2026-06-11T18:16:14.274+03:00  INFO 34153 --- [main] c.u.j.EncryptablePropertySourceConverter : Skipping PropertySource servletContextInitParams [class org.springframework.core.env.PropertySource$StubPropertySource
+2026-06-11T18:16:14.274+03:00  INFO 34153 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource systemProperties [org.springframework.core.env.PropertiesPropertySource] to EncryptableMapPropertySourceWrapper
+2026-06-11T18:16:14.275+03:00  INFO 34153 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableSystemEnvironmentPropertySourceWrapper
+2026-06-11T18:16:14.275+03:00  INFO 34153 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
+2026-06-11T18:16:14.275+03:00  INFO 34153 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource Config resource 'class path resource [application.properties]' via location 'optional:classpath:/' [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-06-11T18:16:14.275+03:00  INFO 34153 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource applicationInfo [org.springframework.boot.ApplicationInfoPropertySource] to EncryptableMapPropertySourceWrapper
+2026-06-11T18:16:14.275+03:00  INFO 34153 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource class path resource [application.properties] [org.springframework.core.io.support.ResourcePropertySource] to EncryptableMapPropertySourceWrapper
+2026-06-11T18:16:14.275+03:00  INFO 34153 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource class path resource [approval.properties] [org.springframework.core.io.support.ResourcePropertySource] to EncryptableMapPropertySourceWrapper
+2026-06-11T18:16:14.445+03:00  INFO 34153 --- [main] c.u.j.filter.DefaultLazyPropertyFilter   : Property Filter custom Bean not found with name 'encryptablePropertyFilter'. Initializing Default Property Filter
+2026-06-11T18:16:14.448+03:00  INFO 34153 --- [main] c.u.j.r.DefaultLazyPropertyResolver      : Property Resolver custom Bean not found with name 'encryptablePropertyResolver'. Initializing Default Property Resolver
+2026-06-11T18:16:14.449+03:00  INFO 34153 --- [main] c.u.j.d.DefaultLazyPropertyDetector      : Property Detector custom Bean not found with name 'encryptablePropertyDetector'. Initializing Default Property Detector
+2026-06-11T18:16:14.591+03:00  INFO 34153 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9097 (http)
+2026-06-11T18:16:14.601+03:00  INFO 34153 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-11T18:16:14.601+03:00  INFO 34153 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.49]
+2026-06-11T18:16:14.647+03:00  INFO 34153 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-06-11T18:16:14.647+03:00  INFO 34153 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1448 ms
+2026-06-11T18:16:14.764+03:00  INFO 34153 --- [main] io.aiven.klaw.config.DataSourceConfig    : Into Hikari datasource config.
+2026-06-11T18:16:14.767+03:00  INFO 34153 --- [main] io.aiven.klaw.config.DataSourceConfig    : Connecting to RDBMS datasource.
+2026-06-11T18:16:14.804+03:00  INFO 34153 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-11T18:16:14.969+03:00  INFO 34153 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:file:/Users/deevroman/Documents/GitHub/jvmti-tools/dumper/.artifacts/klaw_app/data/klawprodb user=KAFKAUSER
+2026-06-11T18:16:14.970+03:00  INFO 34153 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-11T18:16:15.008+03:00  INFO 34153 --- [main] liquibase.database                       : Set default schema name to PUBLIC
+2026-06-11T18:16:15.327+03:00  INFO 34153 --- [main] liquibase.changelog                      : Reading from PUBLIC.DATABASECHANGELOG
+2026-06-11T18:16:15.399+03:00  INFO 34153 --- [main] liquibase.ui                             : Database is up to date, no changesets to execute
+2026-06-11T18:16:15.400+03:00  INFO 34153 --- [main] liquibase.changelog                      : Reading from PUBLIC.DATABASECHANGELOG
+2026-06-11T18:16:15.411+03:00  INFO 34153 --- [main] liquibase.util                           : UPDATE SUMMARY
+2026-06-11T18:16:15.411+03:00  INFO 34153 --- [main] liquibase.util                           : Run:                          0
+2026-06-11T18:16:15.411+03:00  INFO 34153 --- [main] liquibase.util                           : Previously run:              42
+2026-06-11T18:16:15.411+03:00  INFO 34153 --- [main] liquibase.util                           : Filtered out:                 0
+2026-06-11T18:16:15.411+03:00  INFO 34153 --- [main] liquibase.util                           : -------------------------------
+2026-06-11T18:16:15.411+03:00  INFO 34153 --- [main] liquibase.util                           : Total change sets:           42
+2026-06-11T18:16:15.411+03:00  INFO 34153 --- [main] liquibase.util                           : Update summary generated
+2026-06-11T18:16:15.412+03:00  INFO 34153 --- [main] liquibase.command                        : Command execution complete
+2026-06-11T18:16:16.960+03:00  INFO 34153 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-06-11T18:16:16.997+03:00  INFO 34153 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.36.Final
+2026-06-11T18:16:17.019+03:00  INFO 34153 --- [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-06-11T18:16:17.315+03:00  INFO 34153 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-11T18:16:17.341+03:00  WARN 34153 --- [main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-11T18:16:17.346+03:00  INFO 34153 --- [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.1.214
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-06-11T18:16:18.090+03:00  INFO 34153 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-11T18:16:18.091+03:00  INFO 34153 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-11T18:16:18.284+03:00  INFO 34153 --- [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-11T18:16:18.818+03:00  INFO 34153 --- [main] io.aiven.klaw.config.ManageDatabase      : updateStaticData Loading all config.
+2026-06-11T18:16:18.842+03:00  INFO 34153 --- [main] io.aiven.klaw.config.ManageDatabase      : Load roles and permissions.
+2026-06-11T18:16:18.853+03:00  INFO 34153 --- [main] io.aiven.klaw.config.ManageDatabase      : Finished loading cluster parameters.
+2026-06-11T18:16:18.900+03:00  INFO 34153 --- [main] o.s.l.c.support.AbstractContextSource    : Property 'userDn' not set - anonymous context will be used for read-only operations
+2026-06-11T18:16:18.949+03:00  INFO 34153 --- [main] i.aiven.klaw.config.SecurityConfigNoSSO  : Db authentication configured.
+2026-06-11T18:16:19.065+03:00  WARN 34153 --- [main] io.aiven.klaw.model.enums.ApprovalType   : Unknown ApprovalType value 'TOPIC'
+2026-06-11T18:16:19.065+03:00  WARN 34153 --- [main] io.aiven.klaw.model.enums.ApprovalType   : Unknown ApprovalType value 'ACL'
+2026-06-11T18:16:19.066+03:00  WARN 34153 --- [main] io.aiven.klaw.model.enums.ApprovalType   : Unknown ApprovalType value 'SCHEMA'
+2026-06-11T18:16:19.066+03:00  WARN 34153 --- [main] io.aiven.klaw.model.enums.ApprovalType   : Unknown ApprovalType value 'CONNECTOR'
+2026-06-11T18:16:19.299+03:00  INFO 34153 --- [main] i.a.klaw.service.UtilControllerService   : Coral UI is Built == false
+2026-06-11T18:16:19.422+03:00  INFO 34153 --- [main] org.reflections.Reflections              : Reflections took 63 ms to scan 1 urls, producing 78 keys and 511 values
+2026-06-11T18:16:19.428+03:00  INFO 34153 --- [main] io.aiven.klaw.config.MigrationUtility    : Classes discovered [class io.aiven.klaw.dao.migration.MigrateData2x8x0, class io.aiven.klaw.dao.migration.MigrateData2x10x0, class io.aiven.klaw.dao.migration.MigrateData2x2x0, class io.aiven.klaw.dao.migration.MigrateData2x4x0, class io.aiven.klaw.dao.migration.MigrateData2x3x0, class io.aiven.klaw.dao.migration.MigrateData2x5x0], number of classes 6
+2026-06-11T18:16:19.657+03:00  INFO 34153 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-06-11T18:16:19.903+03:00  INFO 34153 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+2026-06-11T18:16:19.942+03:00  INFO 34153 --- [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-06-11T18:16:20.394+03:00  INFO 34153 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:/Users/deevroman/Documents/GitHub/jvmti-tools/dumper/.artifacts/klaw_app/data/klawprodb'
+2026-06-11T18:16:20.502+03:00  INFO 34153 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 9097 (http) with context path '/'
+2026-06-11T18:16:20.503+03:00  INFO 34153 --- [main] u.j.c.RefreshScopeRefreshedEventListener : Refreshing cached encryptable property sources on ServletWebServerInitializedEvent
+2026-06-11T18:16:20.503+03:00  INFO 34153 --- [main] CachingDelegateEncryptablePropertySource : Property Source systemProperties refreshed
+2026-06-11T18:16:20.504+03:00  INFO 34153 --- [main] CachingDelegateEncryptablePropertySource : Property Source systemEnvironment refreshed
+2026-06-11T18:16:20.504+03:00  INFO 34153 --- [main] CachingDelegateEncryptablePropertySource : Property Source random refreshed
+2026-06-11T18:16:20.504+03:00  INFO 34153 --- [main] CachingDelegateEncryptablePropertySource : Property Source Config resource 'class path resource [application.properties]' via location 'optional:classpath:/' refreshed
+2026-06-11T18:16:20.504+03:00  INFO 34153 --- [main] CachingDelegateEncryptablePropertySource : Property Source applicationInfo refreshed
+2026-06-11T18:16:20.504+03:00  INFO 34153 --- [main] CachingDelegateEncryptablePropertySource : Property Source class path resource [application.properties] refreshed
+2026-06-11T18:16:20.504+03:00  INFO 34153 --- [main] CachingDelegateEncryptablePropertySource : Property Source class path resource [approval.properties] refreshed
+2026-06-11T18:16:20.504+03:00  INFO 34153 --- [main] c.u.j.EncryptablePropertySourceConverter : Skipping PropertySource configurationProperties [class org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource
+2026-06-11T18:16:20.504+03:00  INFO 34153 --- [main] c.u.j.EncryptablePropertySourceConverter : Skipping PropertySource servletConfigInitParams [class org.springframework.core.env.PropertySource$StubPropertySource
+2026-06-11T18:16:20.504+03:00  INFO 34153 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource servletContextInitParams [org.springframework.web.context.support.ServletContextPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-06-11T18:16:20.504+03:00  INFO 34153 --- [main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource Management Server [org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration$LocalManagementPortPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-06-11T18:16:20.517+03:00  INFO 34153 --- [main] io.aiven.klaw.UiapiApplication           : Started UiapiApplication in 7.699 seconds (process running for 13.844)
+2026-06-11T18:16:20.570+03:00  INFO 34153 --- [http-nio-9097-exec-1] o.apache.tomcat.util.http.parser.Cookie  : A cookie header was received [session name=s%3AddwECJF0lSucixRcKZC-sl9Ir69gyIjb.jsBUBsRLtNd8i4LborG8i%2FFte18zh6o7SMK1Pz9uSXk;] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+2026-06-11T18:16:20.574+03:00  INFO 34153 --- [http-nio-9097-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-11T18:16:20.574+03:00  INFO 34153 --- [http-nio-9097-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-06-11T18:16:20.575+03:00  INFO 34153 --- [http-nio-9097-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-06-11T18:16:21.083+03:00  WARN 34153 --- [http-nio-9097-exec-7] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource assets/coral/klaw_logo-8b4dc757.png.]
+2026-06-11T18:16:29.531+03:00  INFO 34153 --- [scheduling-1] i.a.klaw.service.EnvControllerService    : Scheduled job (klaw.reloadclusterstatus.interval) : Update cluster status
+2026-06-11T18:18:03.977+03:00  INFO 34153 --- [http-nio-9097-exec-10] i.a.k.s.UsersTeamsControllerService      : addNewTeam TeamModel(teamname=sddfvdfv, teammail=wer@ru.ru, teamphone=2398462349, contactperson=dfkmv jdf, tenantId=null, teamId=null, app=, showDeleteTeam=false, tenantName=null, envList=[])
+2026-06-11T18:18:04.179+03:00  INFO 34153 --- [http-nio-9097-exec-10] i.a.k.s.UsersTeamsControllerService      : CALLSITE_METRIC method=addNewTeam caller=UsersTeamsControllerService.addNewTeam.db elapsed_nanos=167961833 elapsed_seconds=0.167961833
+2026-06-11T18:18:04.225+03:00  INFO 34153 --- [ForkJoinPool.commonPool-worker-1] i.aiven.klaw.service.CommonUtilsService  : invokeResetEndpoints
+2026-06-11T18:18:04.229+03:00  INFO 34153 --- [http-nio-9097-exec-10] i.a.k.controller.UsersTeamsController    : CALLSITE_METRIC method=addNewTeam caller=UsersTeamsController.addNewTeam elapsed_nanos=258934583 elapsed_seconds=0.258934583
+2026-06-11T18:18:12.875+03:00 ERROR 34153 --- [http-nio-9097-exec-3] k.s.EnvsClustersTenantsControllerService : Tenant Configuration not found. 101
+
+java.lang.NullPointerException: Cannot invoke "io.aiven.klaw.model.KwTenantConfigModel.getBaseSyncEnvironment()" because the return value of "java.util.Map.get(Object)" is null
+	at io.aiven.klaw.service.EnvsClustersTenantsControllerService.getSyncEnvs(EnvsClustersTenantsControllerService.java:211) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360) ~[spring-aop-6.2.14.jar:6.2.14]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:724) ~[spring-aop-6.2.14.jar:6.2.14]
+	at io.aiven.klaw.service.EnvsClustersTenantsControllerService$$SpringCGLIB$$0.getSyncEnvs(<generated>) ~[classes/:na]
+	at io.aiven.klaw.controller.EnvsClustersTenantsController.getSyncEnv(EnvsClustersTenantsController.java:157) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360) ~[spring-aop-6.2.14.jar:6.2.14]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196) ~[spring-aop-6.2.14.jar:6.2.14]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-6.2.14.jar:6.2.14]
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97) ~[spring-aop-6.2.14.jar:6.2.14]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.14.jar:6.2.14]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728) ~[spring-aop-6.2.14.jar:6.2.14]
+	at io.aiven.klaw.controller.EnvsClustersTenantsController$$SpringCGLIB$$0.getSyncEnv(<generated>) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258) ~[spring-web-6.2.14.jar:6.2.14]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191) ~[spring-web-6.2.14.jar:6.2.14]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.2.14.jar:6.2.14]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991) ~[spring-webmvc-6.2.14.jar:6.2.14]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896) ~[spring-webmvc-6.2.14.jar:6.2.14]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.2.14.jar:6.2.14]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.2.14.jar:6.2.14]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.2.14.jar:6.2.14]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.2.14.jar:6.2.14]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903) ~[spring-webmvc-6.2.14.jar:6.2.14]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564) ~[tomcat-embed-core-10.1.49.jar:6.0]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.2.14.jar:6.2.14]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.49.jar:6.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-10.1.49.jar:10.1.49]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.49.jar:10.1.49]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.49.jar:10.1.49]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.49.jar:10.1.49]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.49.jar:10.1.49]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108) ~[spring-web-6.2.14.jar:6.2.14]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108) ~[spring-web-6.2.14.jar:6.2.14]
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$FilterObservation$SimpleFilterObservation.lambda$wrap$1(ObservationFilterChainDecorator.java:490) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$1(ObservationFilterChainDecorator.java:351) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator.lambda$wrapSecured$0(ObservationFilterChainDecorator.java:83) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:129) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:101) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:125) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:235) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:229) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.csrf.CsrfFilter.doFilterInternal(CsrfFilter.java:117) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.14.jar:6.2.14]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.14.jar:6.2.14]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.14.jar:6.2.14]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.14.jar:6.2.14]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$0(ObservationFilterChainDecorator.java:334) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:225) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.14.jar:6.2.14]
+	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52) ~[spring-web-6.2.14.jar:6.2.14]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.14.jar:6.2.14]
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-6.2.14.jar:6.2.14]
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:319) ~[spring-security-config-6.5.7.jar:6.5.7]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.14.jar:6.2.14]
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$4(HandlerMappingIntrospector.java:267) ~[spring-webmvc-6.2.14.jar:6.2.14]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.14.jar:6.2.14]
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-6.2.14.jar:6.2.14]
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:240) ~[spring-security-config-6.5.7.jar:6.5.7]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362) ~[spring-web-6.2.14.jar:6.2.14]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278) ~[spring-web-6.2.14.jar:6.2.14]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.49.jar:10.1.49]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.49.jar:10.1.49]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.2.14.jar:6.2.14]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.14.jar:6.2.14]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.49.jar:10.1.49]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.49.jar:10.1.49]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.2.14.jar:6.2.14]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.14.jar:6.2.14]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.49.jar:10.1.49]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.49.jar:10.1.49]
+	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:110) ~[spring-web-6.2.14.jar:6.2.14]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.14.jar:6.2.14]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.49.jar:10.1.49]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.49.jar:10.1.49]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.2.14.jar:6.2.14]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.14.jar:6.2.14]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.49.jar:10.1.49]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.49.jar:10.1.49]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165) ~[tomcat-embed-core-10.1.49.jar:10.1.49]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88) ~[tomcat-embed-core-10.1.49.jar:10.1.49]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482) ~[tomcat-embed-core-10.1.49.jar:10.1.49]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113) ~[tomcat-embed-core-10.1.49.jar:10.1.49]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83) ~[tomcat-embed-core-10.1.49.jar:10.1.49]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72) ~[tomcat-embed-core-10.1.49.jar:10.1.49]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342) ~[tomcat-embed-core-10.1.49.jar:10.1.49]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399) ~[tomcat-embed-core-10.1.49.jar:10.1.49]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.49.jar:10.1.49]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903) ~[tomcat-embed-core-10.1.49.jar:10.1.49]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774) ~[tomcat-embed-core-10.1.49.jar:10.1.49]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.49.jar:10.1.49]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973) ~[tomcat-embed-core-10.1.49.jar:10.1.49]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491) ~[tomcat-embed-core-10.1.49.jar:10.1.49]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.49.jar:10.1.49]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-06-11T19:16:29.472+03:00  INFO 34153 --- [scheduling-1] i.a.klaw.service.EnvControllerService    : Scheduled job (klaw.reloadclusterstatus.interval) : Update cluster status
+2026-06-11T20:00:04.520+03:00  INFO 34153 --- [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-06-11T20:00:04.531+03:00  INFO 34153 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-06-11T20:00:04.578+03:00  INFO 34153 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-11T20:00:04.580+03:00  INFO 34153 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-06-11T20:00:04.581+03:00  INFO 34153 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

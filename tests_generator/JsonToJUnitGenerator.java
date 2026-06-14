@@ -34,6 +34,7 @@ public class JsonToJUnitGenerator {
         if (start.has("method_return_type")) {
             returnDescriptor = start.getJSONObject("method_return_type").optString("descriptor", "I");
         }
+        boolean methodIsStatic = start.optBoolean("method_is_static", false);
         Map<Long, JSONObject> objectRefsById = indexObjectRefsById(start.optJSONArray("object_refs"));
         Map<Long, JSONObject> mockObjectsById = indexMockObjectsById(exit.optJSONArray("mock_objects"));
         List<String> mockVerificationLines = new ArrayList<>();
@@ -47,13 +48,18 @@ public class JsonToJUnitGenerator {
         sb.append("    @Test\n");
         sb.append("    public void generatedTest() throws Exception {\n\n");
 
-        // создание объекта
-        sb.append("        ").append(classFqcn)
-                .append(" obj = new ").append(classFqcn).append("();\n");
+        if (!methodIsStatic) {
+            sb.append("        ").append(classFqcn)
+                    .append(" obj = new ").append(classFqcn).append("();\n");
+        }
 
-        // сеттим поля из method_start
-        JSONObject objectStart = start.getJSONArray("object_refs").getJSONObject(0);
-        JSONArray fieldsStart = objectStart.getJSONArray("fields");
+        JSONArray fieldsStart = new JSONArray();
+        JSONArray startObjectRefs = start.optJSONArray("object_refs");
+        if (!methodIsStatic && startObjectRefs != null && startObjectRefs.length() > 0) {
+            JSONObject objectStart = startObjectRefs.getJSONObject(0);
+            fieldsStart = objectStart.optJSONArray("fields");
+            if (fieldsStart == null) fieldsStart = new JSONArray();
+        }
 
         for (int i = 0; i < fieldsStart.length(); i++) {
             JSONObject field = fieldsStart.getJSONObject(i);
@@ -138,7 +144,7 @@ public class JsonToJUnitGenerator {
                 String javaType = descriptorToJavaType(type);
                 long objectId = arg.optLong("object_id", -1L);
                 JSONObject objectRef = objectRefsById.get(objectId);
-                String literal = objectArgumentLiteral(type, objectRef);
+                String literal = objectArgumentLiteral(type, objectRef, objectRefsById);
                 if (javaType != null && literal != null) {
                     sb.append("        ").append(javaType).append(" ").append(name)
                             .append(" = ").append(literal).append(";\n");
@@ -157,12 +163,13 @@ public class JsonToJUnitGenerator {
 
         // вызов метода
         boolean hasReturn = !"V".equals(returnDescriptor);
+        String callTarget = methodIsStatic ? classFqcn : "obj";
         if (hasReturn) {
             String returnType = descriptorToJavaType(returnDescriptor);
             if (returnType == null) returnType = "Object";
-            sb.append("        ").append(returnType).append(" result = obj.");
+            sb.append("        ").append(returnType).append(" result = ").append(callTarget).append(".");
         } else {
-            sb.append("        obj.");
+            sb.append("        ").append(callTarget).append(".");
         }
         sb.append(methodName).append("(");
 
@@ -196,6 +203,8 @@ public class JsonToJUnitGenerator {
                 if (arrayLiteral != null) {
                     sb.append("        assertArrayEquals(").append(arrayLiteral).append(", result);\n\n");
                 }
+            } else {
+                sb.append("        assertNotNull(result);\n\n");
             }
         }
 
@@ -207,8 +216,13 @@ public class JsonToJUnitGenerator {
         }
 
         // assert полей после выхода
-        JSONObject objectExit = exit.getJSONArray("object_refs").getJSONObject(0);
-        JSONArray fieldsExit = objectExit.getJSONArray("fields");
+        JSONArray fieldsExit = new JSONArray();
+        JSONArray exitObjectRefs = exit.optJSONArray("object_refs");
+        if (!methodIsStatic && exitObjectRefs != null && exitObjectRefs.length() > 0) {
+            JSONObject objectExit = exitObjectRefs.getJSONObject(0);
+            fieldsExit = objectExit.optJSONArray("fields");
+            if (fieldsExit == null) fieldsExit = new JSONArray();
+        }
 
         for (int i = 0; i < fieldsExit.length(); i++) {
             JSONObject field = fieldsExit.getJSONObject(i);
@@ -283,6 +297,17 @@ public class JsonToJUnitGenerator {
         sb.append("    }\n\n");
         sb.append("    private static double getDoubleField(Object target, String fieldName) throws Exception {\n");
         sb.append("        return fieldOf(target, fieldName).getDouble(target);\n");
+        sb.append("    }\n\n");
+
+        sb.append("    private static String readExternalString(String path) throws Exception {\n");
+        sb.append("        return java.nio.file.Files.readString(java.nio.file.Path.of(path), java.nio.charset.StandardCharsets.UTF_8);\n");
+        sb.append("    }\n\n");
+
+        sb.append("    private static java.io.StringReader stringReaderAt(String value, int next) throws Exception {\n");
+        sb.append("        java.io.StringReader reader = new java.io.StringReader(value);\n");
+        sb.append("        long skipped = reader.skip(next);\n");
+        sb.append("        if (skipped != next) throw new java.io.EOFException(\"Cannot skip to captured StringReader position\");\n");
+        sb.append("        return reader;\n");
         sb.append("    }\n\n");
 
         sb.append("    @SafeVarargs\n");
@@ -423,6 +448,8 @@ public class JsonToJUnitGenerator {
             String kind = node.optString("kind", "");
             if ("null".equals(kind)) return "null";
             if (!"string".equals(kind)) return null;
+            String externalExpr = externalStringExpr(node);
+            if (externalExpr != null) return externalExpr;
             return javaStringLiteral(node.optString("string_value", ""));
         }
         if (returnNode instanceof String) return javaStringLiteral((String) returnNode);
@@ -519,10 +546,113 @@ public class JsonToJUnitGenerator {
         return byId;
     }
 
-    private static String objectArgumentLiteral(String descriptor, JSONObject objectRef) {
+    private static String objectArgumentLiteral(String descriptor, JSONObject objectRef, Map<Long, JSONObject> objectRefsById) {
         if (descriptor == null || objectRef == null) return null;
         if ("Ljava/lang/String;".equals(descriptor)) {
             return stringLiteralFromObjectRef(objectRef);
+        }
+        if ("Ljava/io/Reader;".equals(descriptor)) {
+            String readerContent = stringReaderContentLiteral(objectRef, objectRefsById);
+            if (readerContent != null) {
+                return "new java.io.StringReader(" + readerContent + ")";
+            }
+        }
+        if ("Lcom/google/gson/stream/JsonReader;".equals(descriptor)) {
+            String readerExpr = jsonReaderBackingReaderExpr(objectRef, objectRefsById);
+            if (readerExpr != null) {
+                return "new com.google.gson.stream.JsonReader(" + readerExpr + ")";
+            }
+        }
+        return null;
+    }
+
+    private static String jsonReaderBackingReaderExpr(JSONObject objectRef, Map<Long, JSONObject> objectRefsById) {
+        JSONObject readerField = objectField(objectRef, "in");
+        String inlineReaderExpr = stringReaderExprFromSerializedNode(readerField);
+        if (inlineReaderExpr != null) return inlineReaderExpr;
+
+        JSONObject readerRef = objectFieldRef(objectRef, "in", objectRefsById);
+        if (readerRef == null) return null;
+        return objectArgumentLiteral("Ljava/io/Reader;", readerRef, objectRefsById);
+    }
+
+    private static String stringReaderContentLiteral(JSONObject objectRef, Map<Long, JSONObject> objectRefsById) {
+        String customReaderExpr = stringReaderExprFromSerializedNode(objectRef);
+        if (customReaderExpr != null) {
+            return customReaderExpr.substring("new java.io.StringReader(".length(), customReaderExpr.length() - 1);
+        }
+
+        JSONObject typeObj = objectRef.optJSONObject("type");
+        if (typeObj == null) return null;
+        String fqcn = typeObj.optString("fqcn", "");
+        if (!"java.io.StringReader".equals(fqcn)) return null;
+
+        String directString = objectFieldStringLiteral(objectRef, "str");
+        if (directString != null) return directString;
+
+        JSONObject stringRef = objectFieldRef(objectRef, "str", objectRefsById);
+        return stringLiteralFromObjectRef(stringRef);
+    }
+
+    private static String stringReaderExprFromSerializedNode(JSONObject node) {
+        if (node == null) return null;
+        JSONObject custom = node.optJSONObject("custom");
+        if (custom == null || !"string_reader".equals(custom.optString("kind", ""))) return null;
+        JSONObject content = custom.optJSONObject("content");
+        if (content == null) return null;
+
+        String contentExpr = null;
+        if ("string".equals(content.optString("kind", ""))) {
+            String externalExpr = externalStringExpr(content);
+            contentExpr = externalExpr != null ? externalExpr : javaStringLiteral(content.optString("string_value", ""));
+        }
+        if (contentExpr == null) return null;
+
+        int next = custom.optInt("next", 0);
+        if (next <= 0) {
+            return "new java.io.StringReader(" + contentExpr + ")";
+        }
+        return "stringReaderAt(" + contentExpr + ", " + next + ")";
+    }
+
+    private static JSONObject objectField(JSONObject objectRef, String fieldName) {
+        if (objectRef == null) return null;
+        JSONArray fields = objectRef.optJSONArray("fields");
+        if (fields == null) return null;
+        for (int i = 0; i < fields.length(); i++) {
+            JSONObject field = fields.optJSONObject(i);
+            if (field == null || !fieldName.equals(field.optString("name", ""))) continue;
+            return field;
+        }
+        return null;
+    }
+
+    private static JSONObject objectFieldRef(JSONObject objectRef, String fieldName, Map<Long, JSONObject> objectRefsById) {
+        if (objectRef == null || objectRefsById == null) return null;
+        JSONArray fields = objectRef.optJSONArray("fields");
+        if (fields == null) return null;
+        for (int i = 0; i < fields.length(); i++) {
+            JSONObject field = fields.optJSONObject(i);
+            if (field == null || !fieldName.equals(field.optString("name", ""))) continue;
+            long objectId = field.optLong("object_id", -1L);
+            if (objectId < 0L) return null;
+            return objectRefsById.get(objectId);
+        }
+        return null;
+    }
+
+    private static String objectFieldStringLiteral(JSONObject objectRef, String fieldName) {
+        if (objectRef == null) return null;
+        JSONArray fields = objectRef.optJSONArray("fields");
+        if (fields == null) return null;
+        for (int i = 0; i < fields.length(); i++) {
+            JSONObject field = fields.optJSONObject(i);
+            if (field == null || !fieldName.equals(field.optString("name", ""))) continue;
+            if ("string".equals(field.optString("kind", ""))) {
+                String externalExpr = externalStringExpr(field);
+                if (externalExpr != null) return externalExpr;
+                return javaStringLiteral(field.optString("string_value", ""));
+            }
         }
         return null;
     }
@@ -1068,6 +1198,8 @@ public class JsonToJUnitGenerator {
             case "null":
                 return "null";
             case "string":
+                String externalExpr = externalStringExpr(node);
+                if (externalExpr != null) return externalExpr;
                 return javaStringLiteral(node.optString("string_value", ""));
             case "primitive": {
                 String primitiveDescriptor = node.optString("primitive_descriptor", "");
@@ -1093,6 +1225,16 @@ public class JsonToJUnitGenerator {
             default:
                 return "null";
         }
+    }
+
+    private static String externalStringExpr(JSONObject node) {
+        if (node == null) return null;
+        JSONObject external = node.optJSONObject("external_value");
+        if (external == null) return null;
+        if (!"string".equals(external.optString("type", ""))) return null;
+        String path = external.optString("path", "");
+        if (path.isEmpty()) return null;
+        return "readExternalString(" + javaStringLiteral(path) + ")";
     }
 
     private static String javaStringLiteral(String value) {

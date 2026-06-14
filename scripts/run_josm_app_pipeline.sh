@@ -4,6 +4,7 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 RESOLVE_AGENT_LIB_SCRIPT="$ROOT_DIR/scripts/resolve_agent_lib.sh"
+TEST_GENERATORS_SCRIPT="$ROOT_DIR/scripts/run_test_generators.sh"
 
 CONFIG_FILE="$ROOT_DIR/config_josm_program_arguments.json"
 JAR_FILE="$ROOT_DIR/jar_example/josm/josm.jar"
@@ -145,18 +146,22 @@ if raw_llm_dump:
         cfg["llm_dump_path"] = str(llm_dump_path)
     if "dump_llm" in cfg:
         cfg["dump_llm"] = str(llm_dump_path)
+else:
+    llm_dump_path = dump_path.with_suffix(".llm.txt")
 
 effective_cfg = out_dir / "config.effective.json"
 effective_cfg.write_text(json.dumps(cfg, ensure_ascii=False, indent=2), encoding="utf-8")
 
 print(effective_cfg)
 print(dump_path)
+print(llm_dump_path)
 PY
 
 EFFECTIVE_CONFIG_FILE="$(sed -n '1p' "$TMP_CONFIG_INFO")"
 DUMP_PATH="$(sed -n '2p' "$TMP_CONFIG_INFO")"
+LLM_DUMP_PATH="$(sed -n '3p' "$TMP_CONFIG_INFO")"
 
-if [[ -z "$EFFECTIVE_CONFIG_FILE" || -z "$DUMP_PATH" ]]; then
+if [[ -z "$EFFECTIVE_CONFIG_FILE" || -z "$DUMP_PATH" || -z "$LLM_DUMP_PATH" ]]; then
   echo "Failed to prepare effective config" >&2
   exit 1
 fi
@@ -244,5 +249,9 @@ fi
 
 echo "[2/2] Dump generation completed successfully"
 echo "Dump JSON: $DUMP_PATH"
-echo "Likely LLM dump: ${DUMP_PATH%.json}.llm.txt"
+echo "Dump LLM: $LLM_DUMP_PATH"
+"$TEST_GENERATORS_SCRIPT" \
+  --dump "$DUMP_PATH" \
+  --llm-dump "$LLM_DUMP_PATH" \
+  --output-dir "$OUTPUT_DIR"
 echo "Artifacts are in: $OUTPUT_DIR"

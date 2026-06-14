@@ -11,6 +11,7 @@ struct RuntimeConfig
     std::string target_method_signature;
     std::string dump_path;
     std::string llm_dump_path;
+    long external_string_limit = 0;
 };
 
 bool parse_runtime_config_payload(const std::string& payload,

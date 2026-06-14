@@ -9,7 +9,7 @@ public class Calculator {
 
     public static void main(String[] args) {
         Calculator calc = new Calculator();
-        int result = calc.add(2, 10000);
+        int result = calc.add(2, 3);
         System.out.println("Result: " + result);
         System.out.println("Count: " + calc.cnt);
     }

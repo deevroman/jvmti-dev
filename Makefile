@@ -15,13 +15,14 @@ SPRING_LOGIN_TRUE_OUT := $(ARTIFACTS_DIR)/pipeline_spring_login_true
 JOSM_APP_PROGRAM_ARGUMENTS_OUT := $(ARTIFACTS_DIR)/pipeline_josm_app_program_arguments
 GUAVA_SPLITTER_OUT := $(ARTIFACTS_DIR)/pipeline_guava_splitter
 JSON_PARSER_OUT := $(ARTIFACTS_DIR)/pipeline_json_parser
+JSON_PARSER_INTERNAL_OUT := $(ARTIFACTS_DIR)/pipeline_json_parser_internal
 KLAW_COMPAREUTILS_OUT := $(ARTIFACTS_DIR)/pipeline_klaw_compareutils
 KLAW_ADD_NEW_TEAM_OUT := $(ARTIFACTS_DIR)/pipeline_klaw_add_new_team
 KOTLIN_SERIALIZER_OUT := $(ARTIFACTS_DIR)/pipeline_kotlin_serializer
 
-.PHONY: all list clean calculator calculator_llm carcontroller return_string input_stream simple_map spring_login spring_login_true josm_app josm_program_arguments guava_splitter json_parser klaw_compareutils klaw_add_new_team kotlin_serializer
+.PHONY: all list clean calculator calculator_llm carcontroller return_string input_stream simple_map spring_login spring_login_true josm_app josm_program_arguments guava_splitter json_parser json_parser_internal klaw_compareutils klaw_add_new_team kotlin_serializer
 
-all: calculator carcontroller return_string input_stream simple_map spring_login spring_login_true josm_app guava_splitter json_parser klaw_compareutils kotlin_serializer
+all: calculator carcontroller return_string input_stream simple_map spring_login spring_login_true josm_app guava_splitter json_parser json_parser_internal klaw_compareutils kotlin_serializer
 
 list:
 	@echo "Available targets:"
@@ -37,6 +38,7 @@ list:
 	@echo "  make josm_program_arguments  # alias for josm_app"
 	@echo "  make guava_splitter"
 	@echo "  make json_parser"
+	@echo "  make json_parser_internal"
 	@echo "  make klaw_compareutils"
 	@echo "  make klaw_add_new_team"
 	@echo "  make kotlin_serializer"
@@ -110,6 +112,9 @@ guava_splitter:
 json_parser:
 	$(ROOT_DIR)/scripts/run_json_parser_pipeline.sh $(PIPELINE_SOCKET_ARGS) $(JSON_PARSER_OUT)
 
+json_parser_internal:
+	$(ROOT_DIR)/scripts/run_json_parser_internal_pipeline.sh $(PIPELINE_SOCKET_ARGS) $(JSON_PARSER_INTERNAL_OUT)
+
 klaw_compareutils:
 	$(ROOT_DIR)/scripts/run_klaw_compareutils_pipeline.sh $(PIPELINE_SOCKET_ARGS) $(KLAW_COMPAREUTILS_OUT)
 
@@ -120,4 +125,4 @@ kotlin_serializer:
 	$(ROOT_DIR)/scripts/run_kotlin_serializer_pipeline.sh $(PIPELINE_SOCKET_ARGS) $(KOTLIN_SERIALIZER_OUT)
 
 clean:
-	rm -rf $(CALC_OUT) $(CALC_LLM_OUT) $(CAR_OUT) $(RET_OUT) $(INPUT_OUT) $(MAP_OUT) $(SPRING_LOGIN_OUT) $(SPRING_LOGIN_TRUE_OUT) $(JOSM_APP_PROGRAM_ARGUMENTS_OUT) $(GUAVA_SPLITTER_OUT) $(JSON_PARSER_OUT) $(KLAW_COMPAREUTILS_OUT) $(KLAW_ADD_NEW_TEAM_OUT) $(KOTLIN_SERIALIZER_OUT)
+	rm -rf $(CALC_OUT) $(CALC_LLM_OUT) $(CAR_OUT) $(RET_OUT) $(INPUT_OUT) $(MAP_OUT) $(SPRING_LOGIN_OUT) $(SPRING_LOGIN_TRUE_OUT) $(JOSM_APP_PROGRAM_ARGUMENTS_OUT) $(GUAVA_SPLITTER_OUT) $(JSON_PARSER_OUT) $(JSON_PARSER_INTERNAL_OUT) $(KLAW_COMPAREUTILS_OUT) $(KLAW_ADD_NEW_TEAM_OUT) $(KOTLIN_SERIALIZER_OUT)
